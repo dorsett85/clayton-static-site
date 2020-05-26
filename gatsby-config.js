@@ -1,10 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: 'Clayton Phillips-Dorsett: Software Developer',
+    title: 'Clayton Phillips-Dorsett',
     description: 'Professional site for Clayton Phillips-Dorsett',
     author: 'Clayton Phillips-Dorsett',
   },
   plugins: [
+    'gatsby-plugin-ts',
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-filesystem',

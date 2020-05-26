@@ -4,6 +4,8 @@ import Layout from '../components/Layout';
 import Image from '../components/Image';
 import SEO from '../components/Seo';
 
+const one: string = '1';
+
 const IndexPage: React.FC = () => (
   <Layout>
     <SEO title='Home' />
