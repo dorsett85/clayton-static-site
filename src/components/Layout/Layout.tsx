@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import BuildIcon from '@material-ui/icons/Build';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import PersonPinCircleIcon from '@material-ui/icons/PersonPinCircle';
-import { Fab, Popover } from '@material-ui/core';
+import { createStyles, Fab, Popover, SlideProps, Theme } from '@material-ui/core';
 import { Dialog, DialogContent, DialogTitle, DialogActions } from '@material-ui/core';
 import {
   List,
@@ -16,7 +16,7 @@ import {
   ListItemAvatar,
   ListItemText,
   Slide,
-  Zoom,
+  Zoom
 } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
@@ -27,173 +27,183 @@ import AssessmentIcon from '@material-ui/icons/Assessment';
 import { yellow, green, blue } from '@material-ui/core/colors';
 import {
   ArrowLeft as ArrowLeftIcon,
-  ArrowRight as ArrowRightIcon,
+  ArrowRight as ArrowRightIcon
 } from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
 
 // Landing page media
-import cpdHeadshot from '../assets/img/cpd-headshot.jpg';
-import githubIcon from '../assets/img/GitHub-Mark-32px.png';
-import snowbirdBackground from '../assets/img/snowbird_dark.jpg';
+import cpdHeadshot from '../../assets/img/cpd-headshot.jpg';
+import githubIcon from '../../assets/img/GitHub-Mark-32px.png';
+import snowbirdBackground from '../../assets/img/snowbird_dark.jpg';
 
 // Development modal media
-import reactLogo from '../assets/img/react-logo.png';
-import materialUiLogo from '../assets/img/material-ui-logo.png';
-import bootstrapLogo from '../assets/img/bootstrap-solid.svg';
-import djangoLogo from '../assets/img/django-logo-negative.png';
-import nodeLogo from '../assets/img/node-logo.png';
-import laravelLogo from '../assets/img/laravel-l-slant.png';
-import postgresLogo from '../assets/img/PostgreSQL-logo.png';
-import mySqlLogo from '../assets/img/mysql-logo.png';
-import awsLogo from '../assets/img/aws-logo.png';
-import digitalOceanLogo from '../assets/img/DigitalOcean-logo.png';
-import quickModelScreen from '../assets/img/quickmodel.png';
-import reactSweeperScreen from '../assets/img/reactSweeper.png';
-import workoutTrackerScreen from '../assets/img/workout-tracker.png';
-import tripBuddyScreen from '../assets/img/trip-buddy.png';
-import emapScreen from '../assets/img/emap.png';
+import reactLogo from '../../assets/img/react-logo.png';
+import materialUiLogo from '../../assets/img/material-ui-logo.png';
+import bootstrapLogo from '../../assets/img/bootstrap-solid.svg';
+import djangoLogo from '../../assets/img/django-logo-negative.png';
+import nodeLogo from '../../assets/img/node-logo.png';
+import laravelLogo from '../../assets/img/laravel-l-slant.png';
+import postgresLogo from '../../assets/img/PostgreSQL-logo.png';
+import mySqlLogo from '../../assets/img/mysql-logo.png';
+import awsLogo from '../../assets/img/aws-logo.png';
+import digitalOceanLogo from '../../assets/img/DigitalOcean-logo.png';
+import quickModelScreen from '../../assets/img/quickmodel.png';
+import reactSweeperScreen from '../../assets/img/reactSweeper.png';
+import workoutTrackerScreen from '../../assets/img/workout-tracker.png';
+import tripBuddyScreen from '../../assets/img/trip-buddy.png';
+import emapScreen from '../../assets/img/emap.png';
 
 // Visualization modal media
-import quickModelVideo from '../assets/img/quickmodel-vid.mp4';
+import quickModelVideo from '../../assets/img/quickmodel-vid.mp4';
 
 // Personal media
-import climbingTahoeScreen from '../assets/img/climbing-tahoe.jpg';
-import snowboardingVtScreen from '../assets/img/snowboarding-vt.jpg';
-import climbingTetonScreen from '../assets/img/climbing-teton.jpg';
+import climbingTahoeScreen from '../../assets/img/climbing-tahoe.jpg';
+import snowboardingVtScreen from '../../assets/img/snowboarding-vt.jpg';
+import climbingTetonScreen from '../../assets/img/climbing-teton.jpg';
 
-const styles = (theme) => ({
-  background: {
-    height: '100vh',
-    backgroundImage: `url(${snowbirdBackground})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-  },
-  gridContainer: {
-    height: '100%',
-    padding: 20,
-  },
-  centerGrid: {
-    marginBottom: 40,
-  },
-  headerGrid: {
-    marginBottom: 20,
-  },
-  headerText: {
-    color: '#ffffff',
-    textAlign: 'center',
-    textShadow: '0 0 5px #000000',
-    [theme.breakpoints.up('xs')]: {
-      fontSize: 30,
-    },
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 40,
-    },
-    [theme.breakpoints.up('lg')]: {
-      fontSize: 45,
-    },
-  },
-  subHeaderText: {
-    color: '#ffffff',
-    textAlign: 'center',
-    textShadow: '0 0 5px #000000',
-    [theme.breakpoints.up('xs')]: {
-      fontSize: 15,
-    },
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 18,
-    },
-    [theme.breakpoints.up('lg')]: {
-      fontSize: 20,
-    },
-  },
-  modalOpenBtn: {
-    backgroundColor: green[500],
-    '&:hover': {
-      backgroundColor: green[600],
-    },
-    color: theme.palette.common.white,
-  },
-  modalOpenBtnText: {
-    paddingLeft: 10,
-    color: theme.palette.common.white,
-  },
-  logoImg: {
-    borderRadius: 5,
-  },
-  belowDivider: {
-    marginTop: 12,
-  },
-  sampleAppContent: {
-    padding: 5,
-  },
-  sampleAppHeader: {
-    fontWeight: 1000,
-  },
-  sampleMedia: {
-    width: '100%',
-    boxShadow: '0 0 1px #373737',
-  },
-  tickerInputDiv: {
-    display: 'inline-flex',
-    flexWrap: 'wrap',
-    alignItems: 'baseline',
-  },
-  chartProgressDiv: {
-    height: 400,
-    margin: theme.spacing.unit * 2,
-  },
-  chartDiv: {
-    height: 400,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
-  },
-  yellow: {
-    color: yellow[500],
-  },
-  green: {
-    color: green[500],
-  },
-  blue: {
-    color: blue[500],
-  },
-  tahoeClimbingGrid: {
-    marginTop: 1,
-  },
-  fab: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-  },
-  cpdHeadshot: {
-    borderRadius: 50,
-    width: 52,
-    height: 52,
-  },
-  contactPopoverText: {
-    textAlign: 'center',
-    margin: theme.spacing.unit * 2,
-  },
-});
-
-// Modal transition component
-function ModalTransition(props) {
-  return <Slide direction='down' {...props} />;
+interface ModalInfo {
+  title?: string;
+  content?: ReactElement;
+  prevModal: number;
+  nextModal: number;
+  name: string;
+  btnIcon: JSX.Element;
 }
 
-const Layout = (props) => {
+const styles = (theme: Theme): ReturnType<typeof createStyles> =>
+  createStyles({
+    background: {
+      height: '100vh',
+      backgroundImage: `url(${snowbirdBackground})`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover'
+    },
+    gridContainer: {
+      height: '100%',
+      padding: 20
+    },
+    centerGrid: {
+      marginBottom: 40
+    },
+    headerGrid: {
+      marginBottom: 20
+    },
+    headerText: {
+      color: '#ffffff',
+      textAlign: 'center',
+      textShadow: '0 0 5px #000000',
+      [theme.breakpoints.up('xs')]: {
+        fontSize: 30
+      },
+      [theme.breakpoints.up('sm')]: {
+        fontSize: 40
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: 45
+      }
+    },
+    subHeaderText: {
+      color: '#ffffff',
+      textAlign: 'center',
+      textShadow: '0 0 5px #000000',
+      [theme.breakpoints.up('xs')]: {
+        fontSize: 15
+      },
+      [theme.breakpoints.up('sm')]: {
+        fontSize: 18
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: 20
+      }
+    },
+    modalOpenBtn: {
+      backgroundColor: green[500],
+      '&:hover': {
+        backgroundColor: green[600]
+      },
+      color: theme.palette.common.white
+    },
+    modalOpenBtnText: {
+      paddingLeft: 10,
+      color: theme.palette.common.white
+    },
+    logoImg: {
+      borderRadius: 5
+    },
+    belowDivider: {
+      marginTop: 12
+    },
+    sampleAppContent: {
+      padding: 5
+    },
+    sampleAppHeader: {
+      fontWeight: 1000
+    },
+    sampleMedia: {
+      width: '100%',
+      boxShadow: '0 0 1px #373737'
+    },
+    tickerInputDiv: {
+      display: 'inline-flex',
+      flexWrap: 'wrap',
+      alignItems: 'baseline'
+    },
+    chartProgressDiv: {
+      height: 400,
+      margin: theme.spacing(2)
+    },
+    chartDiv: {
+      height: 400,
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2)
+    },
+    yellow: {
+      color: yellow[500]
+    },
+    green: {
+      color: green[500]
+    },
+    blue: {
+      color: blue[500]
+    },
+    tahoeClimbingGrid: {
+      marginTop: 1
+    },
+    fab: {
+      position: 'absolute',
+      bottom: 10,
+      right: 10
+    },
+    cpdHeadshot: {
+      borderRadius: 50,
+      width: 52,
+      height: 52
+    },
+    contactPopoverText: {
+      textAlign: 'center',
+      margin: theme.spacing(2)
+    }
+  });
+
+// Modal transition component
+const ModalTransition: React.FC<SlideProps> = (props) => {
+  return <Slide direction='down' {...props} />;
+};
+
+const Layout = (props: any) => {
   const { classes } = props;
   const modalInfo = [
     { name: 'Development', btnIcon: <BuildIcon /> },
     { name: 'Visualization', btnIcon: <TrendingUpIcon /> },
-    { name: 'Personal', btnIcon: <PersonPinCircleIcon /> },
+    { name: 'Personal', btnIcon: <PersonPinCircleIcon /> }
   ];
 
   // Populate
-  let modal = {
+  const modal: ModalInfo = {
     ...modalInfo[props.modalNum],
     prevModal: props.modalNum === 0 ? modalInfo.length - 1 : props.modalNum - 1,
-    nextModal: props.modalNum === modalInfo.length - 1 ? 0 : props.modalNum + 1,
+    nextModal: props.modalNum === modalInfo.length - 1 ? 0 : props.modalNum + 1
   };
   if (modal.name === 'Development') {
     modal.title = 'Software Development';
@@ -396,7 +406,7 @@ const Layout = (props) => {
       </div>
     );
   } else if (modal.name === 'Visualization') {
-    const chartIcon = (color) => (
+    const chartIcon = (color: string) => (
       <ListItemIcon>
         <AssessmentIcon className={classes[color]} />
       </ListItemIcon>
@@ -434,9 +444,7 @@ const Layout = (props) => {
           timeout={0}
         >
           <div>
-            {!props.chartLoading && (
-              <div id={'stockChart'} className={classes.chartDiv}></div>
-            )}
+            {!props.chartLoading && <div id='stockChart' className={classes.chartDiv} />}
           </div>
         </Zoom>
         <Divider />
@@ -445,7 +453,7 @@ const Layout = (props) => {
           justify={'center'}
           alignItems={'center'}
           className={classes.belowDivider}
-          spacing={24}
+          spacing={3}
         >
           <Grid item xs={12} sm={6}>
             <video className={classes.sampleMedia} playsInline muted autoPlay loop>
@@ -525,12 +533,12 @@ const Layout = (props) => {
           and outdoors.
         </Typography>
         <Typography gutterBottom>
-          When I'm not developing you can probably find me on a mountain climbing or
+          When I&apos;m not developing you can probably find me on a mountain climbing or
           snowboarding.
         </Typography>
         <Grid
           container
-          spacing={16}
+          spacing={2}
           justify={'space-around'}
           className={classes.belowDivider}
         >
@@ -571,7 +579,7 @@ const Layout = (props) => {
                     Clayton Phillips-Dorsett
                   </Typography>
                   <Typography className={classes.subHeaderText}>
-                    Software Developer
+                    Software Developer/Architect
                   </Typography>
                 </Grid>
               </Grid>
@@ -641,17 +649,21 @@ const Layout = (props) => {
               onClose={() => props.handleFabClick()}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'left',
+                horizontal: 'left'
               }}
               transformOrigin={{
                 vertical: 'center',
-                horizontal: 'right',
+                horizontal: 'right'
               }}
             >
               <div className={classes.contactPopoverText}>
                 <Typography variant={'subtitle1'}>Contact for consulting</Typography>
                 <Typography gutterBottom>claytonphillipsdorsett@gmail.com</Typography>
-                <a href={'https://github.com/dorsett85'} target={'_blank'}>
+                <a
+                  href='https://github.com/dorsett85'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
                   <img src={githubIcon} alt={'github icon'} />
                 </a>
               </div>
