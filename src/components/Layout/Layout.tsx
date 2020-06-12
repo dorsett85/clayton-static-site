@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import BuildIcon from '@material-ui/icons/Build';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import PersonPinCircleIcon from '@material-ui/icons/PersonPinCircle';
-import { createStyles, Fab, Popover, SlideProps, Theme } from '@material-ui/core';
+import { createStyles, SlideProps, Theme } from '@material-ui/core';
 import { Dialog, DialogContent, DialogTitle, DialogActions } from '@material-ui/core';
 import {
   List,
@@ -30,11 +30,10 @@ import {
   ArrowRight as ArrowRightIcon
 } from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import ClaytonFab from '../ClaytonFab/ClaytonFab';
 
 // Landing page media
-import cpdHeadshot from '../../assets/img/cpd-headshot.jpg';
-import githubIcon from '../../assets/img/GitHub-Mark-32px.png';
 import snowbirdBackground from '../../assets/img/snowbird_dark.jpg';
 
 // Development modal media
@@ -71,7 +70,7 @@ interface ModalInfo {
   btnIcon: JSX.Element;
 }
 
-const styles = (theme: Theme): ReturnType<typeof createStyles> =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     background: {
       height: '100vh',
@@ -169,30 +168,17 @@ const styles = (theme: Theme): ReturnType<typeof createStyles> =>
     },
     tahoeClimbingGrid: {
       marginTop: 1
-    },
-    fab: {
-      position: 'absolute',
-      bottom: 10,
-      right: 10
-    },
-    cpdHeadshot: {
-      borderRadius: 50,
-      width: 52,
-      height: 52
-    },
-    contactPopoverText: {
-      textAlign: 'center',
-      margin: theme.spacing(2)
     }
-  });
+  })
+);
 
 // Modal transition component
 const ModalTransition: React.FC<SlideProps> = (props) => {
   return <Slide direction='down' {...props} />;
 };
 
-const Layout = (props: any) => {
-  const { classes } = props;
+const Layout: React.FC<any> = (props) => {
+  const classes = useStyles();
   const modalInfo = [
     { name: 'Development', btnIcon: <BuildIcon /> },
     { name: 'Visualization', btnIcon: <TrendingUpIcon /> },
@@ -213,7 +199,7 @@ const Layout = (props: any) => {
           Full-stack engineer with extensive production deployment experience. I have
           built and maintained applications utilizing the following technologies:
         </Typography>
-        <Grid container justify={'center'} spacing={8}>
+        <Grid container justify='center' spacing={8}>
           <Grid item xs={12} sm={6} md={4}>
             <List
               subheader={<ListSubheader disableSticky>Frontend Frameworks</ListSubheader>}
@@ -222,19 +208,19 @@ const Layout = (props: any) => {
                 <ListItemAvatar>
                   <Avatar src={reactLogo} className={classes.logoImg} />
                 </ListItemAvatar>
-                <ListItemText primary={'React'} />
+                <ListItemText primary='React' />
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar src={materialUiLogo} className={classes.logoImg} />
                 </ListItemAvatar>
-                <ListItemText primary={'Material-UI'} />
+                <ListItemText primary='Material-UI' />
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar src={bootstrapLogo} className={classes.logoImg} />
                 </ListItemAvatar>
-                <ListItemText primary={'Bootstrap'} />
+                <ListItemText primary='Bootstrap' />
               </ListItem>
             </List>
           </Grid>
@@ -246,19 +232,19 @@ const Layout = (props: any) => {
                 <ListItemAvatar>
                   <Avatar src={djangoLogo} className={classes.logoImg} />
                 </ListItemAvatar>
-                <ListItemText primary={'Python/Django'} />
+                <ListItemText primary='Python/Django' />
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar src={nodeLogo} className={classes.logoImg} />
                 </ListItemAvatar>
-                <ListItemText primary={'Node/Express'} />
+                <ListItemText primary='Node/Express' />
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar src={laravelLogo} className={classes.logoImg} />
                 </ListItemAvatar>
-                <ListItemText primary={'PHP/Laravel'} />
+                <ListItemText primary='PHP/Laravel' />
               </ListItem>
             </List>
           </Grid>
@@ -268,13 +254,13 @@ const Layout = (props: any) => {
                 <ListItemAvatar>
                   <Avatar src={postgresLogo} className={classes.logoImg} />
                 </ListItemAvatar>
-                <ListItemText primary={'PostgreSQL'} />
+                <ListItemText primary='PostgreSQL' />
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar src={mySqlLogo} className={classes.logoImg} />
                 </ListItemAvatar>
-                <ListItemText primary={'MySQL'} />
+                <ListItemText primary='MySQL' />
               </ListItem>
             </List>
           </Grid>
@@ -285,15 +271,15 @@ const Layout = (props: any) => {
                   <Avatar src={awsLogo} className={classes.logoImg} />
                 </ListItemAvatar>
                 <ListItemText
-                  primary={'Amazon Web Services'}
-                  secondary={'EC2, S3, Lambda, Route 53, etc.'}
+                  primary='Amazon Web Services'
+                  secondary='EC2, S3, Lambda, Route 53, etc.'
                 />
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar src={digitalOceanLogo} className={classes.logoImg} />
                 </ListItemAvatar>
-                <ListItemText primary={'Digital Ocean'} secondary={'Ubuntu'} />
+                <ListItemText primary='Digital Ocean' secondary='Ubuntu' />
               </ListItem>
             </List>
           </Grid>
@@ -301,7 +287,7 @@ const Layout = (props: any) => {
         <Divider />
         <Grid container className={classes.belowDivider} spacing={8}>
           <Grid item xs={12}>
-            <Typography variant={'h6'}>Sample Applications</Typography>
+            <Typography variant='h6'>Sample Applications</Typography>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card>
@@ -311,14 +297,14 @@ const Layout = (props: any) => {
                 }
               >
                 <CardHeader
-                  subheader={'QuickModel'}
+                  subheader='QuickModel'
                   classes={{ subheader: classes.sampleAppHeader }}
                 />
                 <CardContent className={classes.sampleAppContent}>
                   <img
                     src={quickModelScreen}
                     className={classes.sampleMedia}
-                    alt={'QuickModel'}
+                    alt='QuickModel'
                   />
                 </CardContent>
               </CardActionArea>
@@ -330,11 +316,11 @@ const Layout = (props: any) => {
                 onClick={() => props.handleAppClick('https://emap.cphillipsdorsett.com')}
               >
                 <CardHeader
-                  subheader={'eMap (in development)'}
+                  subheader='eMap (in development)'
                   classes={{ subheader: classes.sampleAppHeader }}
                 />
                 <CardContent className={classes.sampleAppContent}>
-                  <img src={emapScreen} className={classes.sampleMedia} alt={'eMap'} />
+                  <img src={emapScreen} className={classes.sampleMedia} alt='eMap' />
                 </CardContent>
               </CardActionArea>
             </Card>
@@ -347,14 +333,14 @@ const Layout = (props: any) => {
                 }
               >
                 <CardHeader
-                  subheader={'ReactSweeper'}
+                  subheader='ReactSweeper'
                   classes={{ subheader: classes.sampleAppHeader }}
                 />
                 <CardContent className={classes.sampleAppContent}>
                   <img
                     src={reactSweeperScreen}
                     className={classes.sampleMedia}
-                    alt={'reactSweeper'}
+                    alt='reactSweeper'
                   />
                 </CardContent>
               </CardActionArea>
@@ -368,14 +354,14 @@ const Layout = (props: any) => {
                 }
               >
                 <CardHeader
-                  subheader={'workout-tracker'}
+                  subheader='workout-tracker'
                   classes={{ subheader: classes.sampleAppHeader }}
                 />
                 <CardContent className={classes.sampleAppContent}>
                   <img
                     src={workoutTrackerScreen}
                     className={classes.sampleMedia}
-                    alt={'workout-tracker'}
+                    alt='workout-tracker'
                   />
                 </CardContent>
               </CardActionArea>
@@ -389,14 +375,14 @@ const Layout = (props: any) => {
                 }
               >
                 <CardHeader
-                  subheader={'trip-buddy'}
+                  subheader='trip-buddy'
                   classes={{ subheader: classes.sampleAppHeader }}
                 />
                 <CardContent className={classes.sampleAppContent}>
                   <img
                     src={tripBuddyScreen}
                     className={classes.sampleMedia}
-                    alt={'trip-buddy'}
+                    alt='trip-buddy'
                   />
                 </CardContent>
               </CardActionArea>
@@ -406,7 +392,7 @@ const Layout = (props: any) => {
       </div>
     );
   } else if (modal.name === 'Visualization') {
-    const chartIcon = (color: string) => (
+    const chartIcon = (color: 'yellow' | 'green' | 'blue') => (
       <ListItemIcon>
         <AssessmentIcon className={classes[color]} />
       </ListItemIcon>
@@ -418,14 +404,14 @@ const Layout = (props: any) => {
           <Grid item xs={12}>
             <form className={classes.tickerInputDiv} onSubmit={props.makeChart}>
               <TextField
-                variant={'standard'}
+                variant='standard'
                 label='Enter stock tickers'
                 placeholder='e.g., AAPL, GOOG'
                 helperText={props.tickerHelperText}
                 error={props.tickerInputError}
                 onInput={props.handleTextInput}
               />
-              <Button type={'submit'} disabled={props.tickerDisabled}>
+              <Button type='submit' disabled={props.tickerDisabled}>
                 Update
               </Button>
             </form>
@@ -450,8 +436,8 @@ const Layout = (props: any) => {
         <Divider />
         <Grid
           container
-          justify={'center'}
-          alignItems={'center'}
+          justify='center'
+          alignItems='center'
           className={classes.belowDivider}
           spacing={3}
         >
@@ -476,39 +462,39 @@ const Layout = (props: any) => {
             <List subheader={<ListSubheader disableSticky>Javascript</ListSubheader>}>
               <ListItem>
                 {chartIcon('yellow')}{' '}
-                <ListItemText primary={'Highcharts'} secondary={'See example above'} />
+                <ListItemText primary={'Highcharts'} secondary='See example above' />
               </ListItem>
               <ListItem>
-                {chartIcon('yellow')} <ListItemText primary={'Mapbox'} />
+                {chartIcon('yellow')} <ListItemText primary='Mapbox' />
               </ListItem>
               <ListItem>
-                {chartIcon('yellow')} <ListItemText primary={'Chart.js'} />
+                {chartIcon('yellow')} <ListItemText primary='Chart.js' />
               </ListItem>
               <ListItem>
-                {chartIcon('yellow')} <ListItemText primary={'Plotly'} />
+                {chartIcon('yellow')} <ListItemText primary='Plotly' />
               </ListItem>
             </List>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <List subheader={<ListSubheader disableSticky>R</ListSubheader>}>
               <ListItem>
-                {chartIcon('blue')} <ListItemText primary={'ggplot2'} />
+                {chartIcon('blue')} <ListItemText primary='ggplot2' />
               </ListItem>
               <ListItem>
-                {chartIcon('blue')} <ListItemText primary={'Leaflet R'} />
+                {chartIcon('blue')} <ListItemText primary='Leaflet R' />
               </ListItem>
               <ListItem>
-                {chartIcon('blue')} <ListItemText primary={'R Markdown/Shiny'} />
+                {chartIcon('blue')} <ListItemText primary='R Markdown/Shiny' />
               </ListItem>
             </List>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <List subheader={<ListSubheader disableSticky>Python</ListSubheader>}>
               <ListItem>
-                {chartIcon('green')} <ListItemText primary={'Matplotlib'} />
+                {chartIcon('green')} <ListItemText primary='Matplotlib' />
               </ListItem>
               <ListItem>
-                {chartIcon('green')} <ListItemText primary={'ReportLab'} />
+                {chartIcon('green')} <ListItemText primary='ReportLab' />
               </ListItem>
             </List>
           </Grid>
@@ -519,12 +505,12 @@ const Layout = (props: any) => {
     modal.title = 'Not Always Working...';
     modal.content = (
       <div>
-        <Grid container justify={'center'}>
+        <Grid container justify='center'>
           <Grid item xs={12} sm={10} md={8} className={classes.tahoeClimbingGrid}>
             <img
               src={climbingTahoeScreen}
               className={classes.sampleMedia}
-              alt={'climbingTahoe'}
+              alt='climbingTahoe'
             />
           </Grid>
         </Grid>
@@ -539,21 +525,21 @@ const Layout = (props: any) => {
         <Grid
           container
           spacing={2}
-          justify={'space-around'}
+          justify='space-around'
           className={classes.belowDivider}
         >
           <Grid item xs={12} sm={6}>
             <img
               src={snowboardingVtScreen}
               className={classes.sampleMedia}
-              alt={'snowboardingVt'}
+              alt='snowboardingVt'
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <img
               src={climbingTetonScreen}
               className={classes.sampleMedia}
-              alt={'climbingTeton'}
+              alt='climbingTeton'
             />
           </Grid>
         </Grid>
@@ -562,17 +548,17 @@ const Layout = (props: any) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
-      <div id={'background'} className={classes.background}>
+      <div id='background' className={classes.background}>
         <Grid
           container
-          justify={'center'}
+          justify='center'
           className={classes.gridContainer}
-          alignItems={'center'}
+          alignItems='center'
         >
           <Grid item md={6} sm={9} xs={12} className={classes.centerGrid}>
-            <Slide in direction={'down'}>
+            <Slide in direction='down'>
               <Grid container className={classes.headerGrid}>
                 <Grid item xs={12}>
                   <Typography className={classes.headerText}>
@@ -590,9 +576,8 @@ const Layout = (props: any) => {
                   <Grid key={i} item sm={4} xs={12}>
                     <Button
                       fullWidth
-                      variant={'contained'}
+                      variant='contained'
                       onClick={() => props.handleToggleModal(i)}
-                      // color={"default"}
                       className={classes.modalOpenBtn}
                     >
                       {info.btnIcon}
@@ -607,72 +592,37 @@ const Layout = (props: any) => {
           </Grid>
         </Grid>
         <Dialog
-          open={Boolean(modal.name)}
+          open={!!modal.name}
           fullWidth
           fullScreen={window.innerWidth < 600}
-          maxWidth={'md'}
+          maxWidth='md'
           TransitionComponent={ModalTransition}
-          onClose={() => props.handleToggleModal(null)}
+          onClose={(): void => props.handleToggleModal(null)}
         >
           <DialogTitle>{modal.title || ''}</DialogTitle>
           <DialogContent>{modal.content}</DialogContent>
           <DialogActions>
             <Button
-              onClick={() => props.handleToggleModal(modal.prevModal)}
+              onClick={(): void => props.handleToggleModal(modal.prevModal)}
               color='primary'
             >
               <ArrowLeftIcon />
             </Button>
             <Button
-              onClick={() => props.handleToggleModal(modal.nextModal)}
+              onClick={(): void => props.handleToggleModal(modal.nextModal)}
               color='primary'
             >
               <ArrowRightIcon />
             </Button>
-            <Button onClick={() => props.handleToggleModal(null)} color='primary'>
+            <Button onClick={(): void => props.handleToggleModal(null)} color='primary'>
               <CloseIcon />
             </Button>
           </DialogActions>
         </Dialog>
-        <Zoom in={props.modalNum === null}>
-          <div>
-            <Fab
-              aria-owns={'contactPopover'}
-              className={classes.fab}
-              onClick={props.handleFabClick}
-            >
-              <Avatar src={cpdHeadshot} className={classes.cpdHeadshot} />
-            </Fab>
-            <Popover
-              open={Boolean(props.fabAnchorEl)}
-              anchorEl={props.fabAnchorEl}
-              onClose={() => props.handleFabClick()}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left'
-              }}
-              transformOrigin={{
-                vertical: 'center',
-                horizontal: 'right'
-              }}
-            >
-              <div className={classes.contactPopoverText}>
-                <Typography variant={'subtitle1'}>Contact for consulting</Typography>
-                <Typography gutterBottom>claytonphillipsdorsett@gmail.com</Typography>
-                <a
-                  href='https://github.com/dorsett85'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <img src={githubIcon} alt={'github icon'} />
-                </a>
-              </div>
-            </Popover>
-          </div>
-        </Zoom>
+        <ClaytonFab modalNum={props.modalNum} />
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
-export default withStyles(styles)(Layout);
+export default Layout;
