@@ -1,6 +1,6 @@
 import React from 'react';
 import Highcharts from 'highcharts/highstock';
-import Layout from '../components/Layout/Layout';
+import Landing from '../components/Landing/Landing';
 import SEO from '../components/Seo/Seo';
 
 export default class App extends React.Component {
@@ -106,7 +106,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Layout
+      <Landing
         handleTextInput={this.handleTextInput}
         tickerHelperText={this.state.tickerHelperText}
         tickerInputError={this.state.tickerInputError}
@@ -115,7 +115,7 @@ export default class App extends React.Component {
         makeChart={this.makeChart}
       >
         <SEO title='Home' />
-      </Layout>
+      </Landing>
     );
   }
 }
