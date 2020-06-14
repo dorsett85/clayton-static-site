@@ -26,15 +26,15 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface ClaytonFabProps {
-  modalNum: any;
+  show: boolean;
 }
 
-const ClaytonFab: React.FC<ClaytonFabProps> = ({ modalNum }) => {
+const ClaytonFab: React.FC<ClaytonFabProps> = ({ show }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   return (
-    <Zoom in={modalNum === undefined}>
+    <Zoom in={show}>
       <div>
         <Fab
           aria-owns='contactPopover'

@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, createStyles, Grid, Slide, Typography, Zoom } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
+import { modalInfoList } from '../LandingModal/modalInfo';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -16,8 +17,7 @@ const useStyles = makeStyles((theme) =>
       marginBottom: 20
     },
     headerText: {
-      color: '#ffffff',
-      textAlign: 'center',
+      color: theme.palette.common.white,
       textShadow: '0 0 5px #000000',
       fontSize: 45,
       [theme.breakpoints.down('sm')]: {
@@ -28,8 +28,7 @@ const useStyles = makeStyles((theme) =>
       }
     },
     subHeaderText: {
-      color: '#ffffff',
-      textAlign: 'center',
+      color: theme.palette.common.white,
       textShadow: '0 0 5px #000000',
       fontSize: 20,
       [theme.breakpoints.down('sm')]: {
@@ -50,7 +49,6 @@ const useStyles = makeStyles((theme) =>
 );
 
 interface LandingContentProps {
-  modalInfo: any[];
   /**
    * Handler when a landing button is clicked. The idx argument will set the correct
    * modal content to display.
@@ -58,7 +56,7 @@ interface LandingContentProps {
   onButtonClick: (idx: number) => void;
 }
 
-const LandingContent: React.FC<LandingContentProps> = ({ modalInfo, onButtonClick }) => {
+const LandingContent: React.FC<LandingContentProps> = ({ onButtonClick }) => {
   const classes = useStyles();
 
   return (
@@ -68,14 +66,19 @@ const LandingContent: React.FC<LandingContentProps> = ({ modalInfo, onButtonClic
       className={classes.gridContainer}
       alignItems='center'
     >
-      <Grid item md={6} sm={9} xs={12} className={classes.centerGrid}>
+      <Grid item xs={12} sm={9} md={6} className={classes.centerGrid}>
         <Slide in direction='down'>
           <Grid container className={classes.headerGrid}>
             <Grid item xs={12}>
-              <Typography className={classes.headerText}>
+              <Typography
+                variant='h1'
+                align='center'
+                gutterBottom
+                className={classes.headerText}
+              >
                 Clayton Phillips-Dorsett
               </Typography>
-              <Typography className={classes.subHeaderText}>
+              <Typography variant='h2' align='center' className={classes.subHeaderText}>
                 Software Developer/Architect
               </Typography>
             </Grid>
@@ -83,8 +86,8 @@ const LandingContent: React.FC<LandingContentProps> = ({ modalInfo, onButtonClic
         </Slide>
         <Zoom in timeout={500}>
           <Grid container spacing={2}>
-            {modalInfo.map((info, i) => (
-              <Grid key={info.name} item sm={4} xs={12}>
+            {modalInfoList.map((info, i) => (
+              <Grid key={info.btnTxt} item xs={12} sm={4}>
                 <Button
                   fullWidth
                   variant='contained'
@@ -92,7 +95,7 @@ const LandingContent: React.FC<LandingContentProps> = ({ modalInfo, onButtonClic
                   startIcon={info.btnIcon}
                   className={classes.modalOpenBtn}
                 >
-                  {info.name}
+                  {info.btnTxt}
                 </Button>
               </Grid>
             ))}

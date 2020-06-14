@@ -19,13 +19,13 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'gatsby-starter-default',
-        short_name: 'starter',
+        name: 'Professional site for Clayton Phillips-Dorsett',
+        short_name: 'CPD professional site',
         start_url: '/',
-        background_color: '#663399',
-        theme_color: '#663399',
+        background_color: '#ffffff',
+        theme_color: '#ffffff',
         display: 'minimal-ui',
-        icon: 'src/assets/img/gatsby-icon.png' // This path is relative to the root of the site.
+        icon: 'src/assets/img/favicon.png' // This path is relative to the root of the site.
       }
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality

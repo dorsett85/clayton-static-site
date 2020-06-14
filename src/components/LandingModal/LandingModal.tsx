@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
+  DialogProps,
   DialogTitle,
   Slide,
-  SlideProps
+  SlideProps,
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import CloseIcon from '@material-ui/icons/Close';
+import { modalInfoList } from './modalInfo';
+
+interface LandingModalProps extends Pick<DialogProps, 'open'> {
+  /**
+   * Handler for modal close event
+   */
+  onClose: () => void;
+  /**
+   * Index of modalInfoList to use for displaying content
+   */
+  modalInfoIdx: number;
+  /**
+   * Handler when the user clicks the left or right arrows. This will increment
+   * or decrement through the indexes of modalInfoList.
+   */
+  onModalInfoIdxChange: (idx: number) => void;
+}
 
 /**
  * Modal transition component
@@ -20,36 +40,50 @@ const ModalTransition = React.forwardRef<unknown, SlideProps>((props, ref) => {
 });
 ModalTransition.displayName = 'ModalTransition';
 
-interface LandingModalProps {
-  modal: any | undefined;
-  /**
-   * Handler when the user clicks the left or right arrows or the modal closes. If the
-   * section argument is undefined then the modal will close. Otherwise it's a number that
-   * represents the index of the modalInfo list containing a ModalInfo object.
-   */
-  onModalChange: (section?: number) => void;
-}
+const LandingModal: React.FC<LandingModalProps> = ({
+  open,
+  onClose,
+  modalInfoIdx,
+  onModalInfoIdxChange
+}) => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
+  const modalInfo = modalInfoList[modalInfoIdx];
 
-const LandingModal: React.FC<LandingModalProps> = ({ modal, onModalChange }) => {
+  // Handler to move between the different modal screens. This will loop through
+  // the indexes of modalInfoList.
+  const handleOnModalChange: MouseEventHandler<HTMLButtonElement> = ({
+    currentTarget
+  }) => {
+    const targetValue = +currentTarget.value;
+    const newModalInfoIdx =
+      targetValue >= modalInfoList.length
+        ? 0
+        : targetValue < 0
+        ? modalInfoList.length - 1
+        : targetValue;
+    onModalInfoIdxChange(newModalInfoIdx);
+  };
+
   return (
     <Dialog
-      open={!!modal?.name}
+      open={open}
       fullWidth
-      fullScreen={window.innerWidth < 600}
+      fullScreen={isSmallScreen}
       maxWidth='md'
       TransitionComponent={ModalTransition}
-      onClose={(): void => onModalChange()}
+      onClose={onClose}
     >
-      <DialogTitle>{modal?.title || ''}</DialogTitle>
-      <DialogContent>{modal?.content}</DialogContent>
+      <DialogTitle>{modalInfo.title}</DialogTitle>
+      <DialogContent>{modalInfo.content}</DialogContent>
       <DialogActions>
-        <Button onClick={(): void => onModalChange(modal?.prevModal)} color='primary'>
+        <Button onClick={handleOnModalChange} color='primary' value={modalInfoIdx - 1}>
           <ArrowLeftIcon />
         </Button>
-        <Button onClick={(): void => onModalChange(modal?.nextModal)} color='primary'>
+        <Button onClick={handleOnModalChange} color='primary' value={modalInfoIdx + 1}>
           <ArrowRightIcon />
         </Button>
-        <Button onClick={(): void => onModalChange()} color='primary'>
+        <Button onClick={onClose} color='primary'>
           <CloseIcon />
         </Button>
       </DialogActions>
