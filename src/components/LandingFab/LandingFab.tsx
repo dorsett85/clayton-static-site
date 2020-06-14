@@ -34,7 +34,7 @@ const ClaytonFab: React.FC<ClaytonFabProps> = ({ modalNum }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   return (
-    <Zoom in={modalNum === null}>
+    <Zoom in={modalNum === undefined}>
       <div>
         <Fab
           aria-owns='contactPopover'
@@ -64,7 +64,7 @@ const ClaytonFab: React.FC<ClaytonFabProps> = ({ modalNum }) => {
               target='_blank'
               rel='noopener noreferrer'
             >
-              <img src={githubIcon} alt={'github icon'} />
+              <img src={githubIcon} alt='github icon' />
             </a>
           </div>
         </Popover>

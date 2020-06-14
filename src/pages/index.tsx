@@ -5,34 +5,19 @@ import SEO from '../components/Seo/Seo';
 
 export default class App extends React.Component {
   state = {
-    modalNum: null,
     tickers: '',
     tickerHelperText: '',
     tickerInputError: false,
     tickerDisabled: true,
-    chartLoading: false,
-    fabAnchorEl: null
+    chartLoading: false
   };
 
   constructor(props: any) {
     super(props);
 
     // Bind methods
-    this.handleToggleModal = this.handleToggleModal.bind(this);
-    this.handleAppClick = this.handleAppClick.bind(this);
     this.handleTextInput = this.handleTextInput.bind(this);
     this.makeChart = this.makeChart.bind(this);
-    this.handleFabClick = this.handleFabClick.bind(this);
-  }
-
-  handleToggleModal(modal: any) {
-    this.setState({
-      modalNum: modal
-    });
-  }
-
-  handleAppClick(url: any) {
-    window.open(url, '_blank');
   }
 
   handleTextInput(e: any) {
@@ -81,8 +66,8 @@ export default class App extends React.Component {
       tickerDisabled: true,
       chartLoading: true
     });
-    fetch(`chartData/${tickers}`)
-      .then((response) => response.json())
+    fetch(`http://localhost:3000/chartData/${tickers}`)
+      .then((res) => res.json())
       .then((data) => {
         // Remove the progress loader
         this.setState(
@@ -119,26 +104,15 @@ export default class App extends React.Component {
       });
   }
 
-  handleFabClick(e: any) {
-    this.setState({
-      fabAnchorEl: e ? e.currentTarget : null
-    });
-  }
-
   render() {
     return (
       <Layout
-        handleToggleModal={this.handleToggleModal}
-        handleAppClick={this.handleAppClick}
-        modalNum={this.state.modalNum}
         handleTextInput={this.handleTextInput}
         tickerHelperText={this.state.tickerHelperText}
         tickerInputError={this.state.tickerInputError}
         tickerDisabled={this.state.tickerDisabled}
         chartLoading={this.state.chartLoading}
         makeChart={this.makeChart}
-        handleFabClick={this.handleFabClick}
-        fabAnchorEl={this.state.fabAnchorEl}
       >
         <SEO title='Home' />
       </Layout>
