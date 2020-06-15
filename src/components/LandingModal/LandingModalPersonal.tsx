@@ -1,60 +1,136 @@
 import React from 'react';
+import Img, { FluidObject } from 'gatsby-image';
 import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
-import climbingTahoeScreen from '../../assets/img/climbing-tahoe.jpg';
-import snowboardingVtScreen from '../../assets/img/snowboarding-vt.jpg';
-import climbingTetonScreen from '../../assets/img/climbing-teton.jpg';
+import { graphql, useStaticQuery } from 'gatsby';
+import { PersonalImagesQuery } from '../../../graphql-types';
 
-const useStyles = makeStyles(() =>
+export const personalImagesQuery = graphql`
+  query PersonalImages {
+    climbingEldoImage: file(relativePath: { eq: "climbing-eldo.jpg" }) {
+      childImageSharp {
+        fluid(maxHeight: 450) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    climbingSilvertonImage: file(relativePath: { eq: "climbing-silverton.jpg" }) {
+      childImageSharp {
+        fluid(maxHeight: 450) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    climbingTahoeImage: file(relativePath: { eq: "climbing-tahoe.jpg" }) {
+      childImageSharp {
+        fluid(maxHeight: 450) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    skiingJacksonImage: file(relativePath: { eq: "skiing-jackson.jpg" }) {
+      childImageSharp {
+        fluid(maxHeight: 450) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    climbingRumneyImage: file(relativePath: { eq: "climbing-rumney.jpg" }) {
+      childImageSharp {
+        fluid(maxHeight: 900) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    climbingTetonsImage: file(relativePath: { eq: "climbing-tetons.jpg" }) {
+      childImageSharp {
+        fluid(maxHeight: 900) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`;
+
+const useStyles = makeStyles((theme) =>
   createStyles({
-    belowDivider: {
-      marginTop: 12
+    spacingAbove: {
+      marginTop: theme.spacing(2)
     },
     sampleMedia: {
       width: '100%',
       boxShadow: '0 0 1px #373737'
-    },
-    tahoeClimbingGrid: {
-      marginTop: 1
     }
   })
 );
 
 const LandingModalPersonal: React.FC = () => {
   const classes = useStyles();
+  const {
+    climbingEldoImage,
+    climbingSilvertonImage,
+    climbingTahoeImage,
+    skiingJacksonImage,
+    climbingRumneyImage,
+    climbingTetonsImage
+  } = useStaticQuery<PersonalImagesQuery>(personalImagesQuery);
 
   return (
     <div>
-      <Grid container justify='center'>
-        <Grid item xs={12} sm={10} md={8} className={classes.tahoeClimbingGrid}>
-          <img
-            src={climbingTahoeScreen}
-            className={classes.sampleMedia}
-            alt='climbingTahoe'
-          />
-        </Grid>
-      </Grid>
-      <Typography gutterBottom className={classes.belowDivider}>
+      <Typography paragraph>
         I grew up in beautiful southern Vermont and continue to enjoy all things active
-        and outdoors.
+        and outdoors. When I&apos;m not developing you can find me on a mountain climbing
+        or snowboarding.
       </Typography>
-      <Typography gutterBottom>
-        When I&apos;m not developing you can probably find me on a mountain climbing or
-        snowboarding.
-      </Typography>
-      <Grid container spacing={2} justify='space-around' className={classes.belowDivider}>
-        <Grid item xs={12} sm={6}>
-          <img
-            src={snowboardingVtScreen}
-            className={classes.sampleMedia}
-            alt='snowboardingVt'
-          />
+      <Grid container spacing={1}>
+        <Grid item xs={7}>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <Img
+                fluid={climbingEldoImage?.childImageSharp?.fluid as FluidObject}
+                className={classes.sampleMedia}
+                alt='climbing eldo'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Img
+                fluid={climbingSilvertonImage?.childImageSharp?.fluid as FluidObject}
+                className={classes.sampleMedia}
+                alt='climbing silverton'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Img
+                fluid={climbingTahoeImage?.childImageSharp?.fluid as FluidObject}
+                className={classes.sampleMedia}
+                alt='climbing tahoe'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Img
+                fluid={skiingJacksonImage?.childImageSharp?.fluid as FluidObject}
+                className={classes.sampleMedia}
+                alt='skiing jackson'
+              />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <img
-            src={climbingTetonScreen}
-            className={classes.sampleMedia}
-            alt='climbingTeton'
-          />
+        <Grid item xs={5}>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <Img
+                fluid={climbingRumneyImage?.childImageSharp?.fluid as FluidObject}
+                className={classes.sampleMedia}
+                alt='climbing rumney'
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Img
+                fluid={climbingTetonsImage?.childImageSharp?.fluid as FluidObject}
+                className={classes.sampleMedia}
+                alt='climbing tetons'
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>

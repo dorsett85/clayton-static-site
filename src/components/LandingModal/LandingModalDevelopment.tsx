@@ -1,4 +1,6 @@
 import React from 'react';
+import Img, { FluidObject } from 'gatsby-image';
+import { graphql, useStaticQuery } from 'gatsby';
 import {
   makeStyles,
   createStyles,
@@ -28,11 +30,47 @@ import mySqlLogo from '../../assets/img/mysql-logo.png';
 import gcpLogo from '../../assets/img/gcp-logo.png';
 import awsLogo from '../../assets/img/aws-logo.png';
 import digitalOceanLogo from '../../assets/img/digital-ocean-logo.png';
-import tripBuddyScreen from '../../assets/img/trip-buddy.png';
-import quickModelScreen from '../../assets/img/quickmodel.png';
-import emapScreen from '../../assets/img/emap.png';
-import reactSweeperScreen from '../../assets/img/reactSweeper.png';
-import workoutTrackerScreen from '../../assets/img/workout-tracker.png';
+import { SampleAppImagesQuery } from '../../../graphql-types';
+
+export const sampleAppImagesQuery = graphql`
+  query SampleAppImages {
+    tripBuddyImage: file(relativePath: { eq: "trip-buddy.png" }) {
+      childImageSharp {
+        fluid(maxWidth: 600) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    quickModelImage: file(relativePath: { eq: "quickmodel.png" }) {
+      childImageSharp {
+        fluid(maxWidth: 600) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    eMapImage: file(relativePath: { eq: "emap.png" }) {
+      childImageSharp {
+        fluid(maxWidth: 600) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    reactSweeperImage: file(relativePath: { eq: "reactSweeper.png" }) {
+      childImageSharp {
+        fluid(maxWidth: 600) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    workoutTrackerImage: file(relativePath: { eq: "workout-tracker.png" }) {
+      childImageSharp {
+        fluid(maxWidth: 600) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`;
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -59,8 +97,52 @@ const handleSampleAppClick = (url: string): void => {
   window.open(url, '_blank');
 };
 
+interface GridSampleAppItem {
+  /**
+   * External url path
+   */
+  externalUrl: string;
+  /**
+   * Name of the app that will display as the card sub-header and alt attribute
+   * for the image
+   */
+  name: string;
+  /**
+   * Fluid property from gql image query
+   */
+  imgFluid: FluidObject;
+}
+
+const GridSampleAppItem: React.FC<GridSampleAppItem> = ({
+  externalUrl,
+  name,
+  imgFluid
+}) => {
+  const classes = useStyles();
+
+  return (
+    <Grid item xs={12} sm={6} md={4}>
+      <Card>
+        <CardActionArea onClick={(): void => handleSampleAppClick(externalUrl)}>
+          <CardHeader subheader={name} classes={{ subheader: classes.sampleAppHeader }} />
+          <CardContent className={classes.sampleAppContent}>
+            <Img fluid={imgFluid} className={classes.sampleMedia} alt={name} />
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Grid>
+  );
+};
+
 const LandingModalDevelopment: React.FC = () => {
   const classes = useStyles();
+  const {
+    tripBuddyImage,
+    quickModelImage,
+    eMapImage,
+    reactSweeperImage,
+    workoutTrackerImage
+  } = useStaticQuery<SampleAppImagesQuery>(sampleAppImagesQuery);
 
   return (
     <>
@@ -161,111 +243,35 @@ const LandingModalDevelopment: React.FC = () => {
         </Grid>
       </Grid>
       <Divider />
-      <Grid container className={classes.belowDivider} spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant='h6'>Sample Applications</Typography>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card>
-            <CardActionArea
-              onClick={(): void =>
-                handleSampleAppClick('https://trip-buddy.cphillipsdorsett.com')
-              }
-            >
-              <CardHeader
-                subheader='trip-buddy'
-                classes={{ subheader: classes.sampleAppHeader }}
-              />
-              <CardContent className={classes.sampleAppContent}>
-                <img
-                  src={tripBuddyScreen}
-                  className={classes.sampleMedia}
-                  alt='trip-buddy'
-                />
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card>
-            <CardActionArea
-              onClick={(): void =>
-                handleSampleAppClick('https://pymodel.cphillipsdorsett.com')
-              }
-            >
-              <CardHeader
-                subheader='QuickModel'
-                classes={{ subheader: classes.sampleAppHeader }}
-              />
-              <CardContent className={classes.sampleAppContent}>
-                <img
-                  src={quickModelScreen}
-                  className={classes.sampleMedia}
-                  alt='QuickModel'
-                />
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card>
-            <CardActionArea
-              onClick={(): void =>
-                handleSampleAppClick('https://emap.cphillipsdorsett.com')
-              }
-            >
-              <CardHeader
-                subheader='eMap (in development)'
-                classes={{ subheader: classes.sampleAppHeader }}
-              />
-              <CardContent className={classes.sampleAppContent}>
-                <img src={emapScreen} className={classes.sampleMedia} alt='eMap' />
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card>
-            <CardActionArea
-              onClick={(): void =>
-                handleSampleAppClick('https://reactsweeper.cphillipsdorsett.com')
-              }
-            >
-              <CardHeader
-                subheader='ReactSweeper'
-                classes={{ subheader: classes.sampleAppHeader }}
-              />
-              <CardContent className={classes.sampleAppContent}>
-                <img
-                  src={reactSweeperScreen}
-                  className={classes.sampleMedia}
-                  alt='reactSweeper'
-                />
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card>
-            <CardActionArea
-              onClick={(): void =>
-                handleSampleAppClick('https://workout-tracker.cphillipsdorsett.com')
-              }
-            >
-              <CardHeader
-                subheader='workout-tracker'
-                classes={{ subheader: classes.sampleAppHeader }}
-              />
-              <CardContent className={classes.sampleAppContent}>
-                <img
-                  src={workoutTrackerScreen}
-                  className={classes.sampleMedia}
-                  alt='workout-tracker'
-                />
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
+      <Typography variant='h6' paragraph className={classes.belowDivider}>
+        Sample Applications
+      </Typography>
+      <Grid container spacing={2}>
+        <GridSampleAppItem
+          externalUrl={'https://trip-buddy.cphillipsdorsett.com'}
+          name={'trip-buddy'}
+          imgFluid={tripBuddyImage?.childImageSharp?.fluid as FluidObject}
+        />
+        <GridSampleAppItem
+          externalUrl={'https://pymodel.cphillipsdorsett.com'}
+          name={'QuickModel'}
+          imgFluid={quickModelImage?.childImageSharp?.fluid as FluidObject}
+        />
+        <GridSampleAppItem
+          externalUrl={'https://emap.cphillipsdorsett.com'}
+          name={'eMap'}
+          imgFluid={eMapImage?.childImageSharp?.fluid as FluidObject}
+        />
+        <GridSampleAppItem
+          externalUrl={'https://reactsweeper.cphillipsdorsett.com'}
+          name={'ReactSweeper'}
+          imgFluid={reactSweeperImage?.childImageSharp?.fluid as FluidObject}
+        />
+        <GridSampleAppItem
+          externalUrl={'https://workout-tracker.cphillipsdorsett.com'}
+          name={'workout-tracker'}
+          imgFluid={workoutTrackerImage?.childImageSharp?.fluid as FluidObject}
+        />
       </Grid>
     </>
   );
