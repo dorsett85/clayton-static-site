@@ -2427,6 +2427,11 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>;
 };
 
+export type LandingBackgroundImageQueryVariables = {};
+
+
+export type LandingBackgroundImageQuery = { backgroundImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> };
+
 export type SampleAppImagesQueryVariables = {};
 
 

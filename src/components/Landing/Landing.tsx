@@ -1,23 +1,11 @@
 import React, { useState } from 'react';
-import { CssBaseline, makeStyles, createStyles } from '@material-ui/core';
-import LandingModal from '../LandingModal/LandingModal';
+import { CssBaseline } from '@material-ui/core';
+import LandingBackground from '../LandingBackground';
 import LandingContent from '../LandingContent/LandingContent';
+import LandingModal from '../LandingModal/LandingModal';
 import LandingFab from '../LandingFab/LandingFab';
-import snowbirdBackground from '../../assets/img/snowbird_dark.jpg';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    background: {
-      height: '100vh',
-      backgroundImage: `url(${snowbirdBackground})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover'
-    }
-  })
-);
 
 const Landing: React.FC = () => {
-  const classes = useStyles();
   const [openModal, setOpenModal] = useState(false);
   const [modalInfoIdx, setModalInfoIdx] = useState<number>(0);
 
@@ -33,9 +21,9 @@ const Landing: React.FC = () => {
   return (
     <>
       <CssBaseline />
-      <div className={classes.background}>
+      <LandingBackground>
         <LandingContent onButtonClick={handleOnModalIdxChange} />
-      </div>
+      </LandingBackground>
       <LandingModal
         open={openModal}
         onClose={handleOnModalClose}

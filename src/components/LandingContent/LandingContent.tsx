@@ -1,11 +1,31 @@
 import React from 'react';
-import { Button, createStyles, Grid, Slide, Typography, Zoom } from '@material-ui/core';
+import { Button, createStyles, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import { modalInfoList } from '../LandingModal/modalInfo';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    '@keyframes slideInDown': {
+      from: {
+        opacity: '0',
+        transform: 'translateY(-200%)'
+      },
+      to: {
+        opacity: '1',
+        transform: 'translateY(0)'
+      }
+    },
+    '@keyframes zoomIn': {
+      from: {
+        opacity: '0',
+        transform: 'scale(0)'
+      },
+      to: {
+        opacity: '1',
+        transform: 'scale(1)'
+      }
+    },
     gridContainer: {
       height: '100%',
       padding: 20
@@ -14,7 +34,10 @@ const useStyles = makeStyles((theme) =>
       marginBottom: 40
     },
     headerGrid: {
-      marginBottom: 20
+      marginBottom: 32,
+      opacity: '0',
+      transform: 'translateY(-200%)',
+      animation: '$slideInDown 0.5s ease-out 0.25s forwards'
     },
     headerText: {
       color: theme.palette.common.white,
@@ -37,6 +60,11 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.down('xs')]: {
         fontSize: 16
       }
+    },
+    buttonGrid: {
+      opacity: '0',
+      transform: 'scale(0)',
+      animation: '$zoomIn 0.5s ease-out 0.75s forwards'
     },
     modalOpenBtn: {
       backgroundColor: green[500],
@@ -67,40 +95,34 @@ const LandingContent: React.FC<LandingContentProps> = ({ onButtonClick }) => {
       alignItems='center'
     >
       <Grid item xs={12} sm={9} md={6} className={classes.centerGrid}>
-        <Slide in direction='down'>
-          <Grid container className={classes.headerGrid}>
-            <Grid item xs={12}>
-              <Typography
-                variant='h1'
-                align='center'
-                gutterBottom
-                className={classes.headerText}
+        <div className={classes.headerGrid}>
+          <Typography
+            variant='h1'
+            align='center'
+            gutterBottom
+            className={classes.headerText}
+          >
+            Clayton Phillips-Dorsett
+          </Typography>
+          <Typography variant='h2' align='center' className={classes.subHeaderText}>
+            Software Developer/Architect
+          </Typography>
+        </div>
+        <Grid container spacing={2} className={classes.buttonGrid}>
+          {modalInfoList.map((info, i) => (
+            <Grid key={info.btnTxt} item xs={12} sm={4}>
+              <Button
+                fullWidth
+                variant='contained'
+                onClick={(): void => onButtonClick(i)}
+                startIcon={info.btnIcon}
+                className={classes.modalOpenBtn}
               >
-                Clayton Phillips-Dorsett
-              </Typography>
-              <Typography variant='h2' align='center' className={classes.subHeaderText}>
-                Software Developer/Architect
-              </Typography>
+                {info.btnTxt}
+              </Button>
             </Grid>
-          </Grid>
-        </Slide>
-        <Zoom in timeout={500}>
-          <Grid container spacing={2}>
-            {modalInfoList.map((info, i) => (
-              <Grid key={info.btnTxt} item xs={12} sm={4}>
-                <Button
-                  fullWidth
-                  variant='contained'
-                  onClick={(): void => onButtonClick(i)}
-                  startIcon={info.btnIcon}
-                  className={classes.modalOpenBtn}
-                >
-                  {info.btnTxt}
-                </Button>
-              </Grid>
-            ))}
-          </Grid>
-        </Zoom>
+          ))}
+        </Grid>
       </Grid>
     </Grid>
   );
