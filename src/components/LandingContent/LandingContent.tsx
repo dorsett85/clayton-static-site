@@ -1,7 +1,14 @@
 import React from 'react';
-import { Button, createStyles, Grid, Typography } from '@material-ui/core';
+import {
+  Button,
+  createStyles,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+import { lightBlue } from '@material-ui/core/colors';
 import { modalInfoList } from '../LandingModal/modalInfo';
 
 const useStyles = makeStyles((theme) =>
@@ -43,9 +50,6 @@ const useStyles = makeStyles((theme) =>
       color: theme.palette.common.white,
       textShadow: '0 0 5px #000000',
       fontSize: 45,
-      [theme.breakpoints.down('sm')]: {
-        fontSize: 40
-      },
       [theme.breakpoints.down('xs')]: {
         fontSize: 30
       }
@@ -53,12 +57,9 @@ const useStyles = makeStyles((theme) =>
     subHeaderText: {
       color: theme.palette.common.white,
       textShadow: '0 0 5px #000000',
-      fontSize: 20,
-      [theme.breakpoints.down('sm')]: {
-        fontSize: 18
-      },
+      fontSize: 22,
       [theme.breakpoints.down('xs')]: {
-        fontSize: 16
+        fontSize: 18
       }
     },
     buttonGrid: {
@@ -67,11 +68,12 @@ const useStyles = makeStyles((theme) =>
       animation: '$zoomIn 0.5s ease-out 0.75s forwards'
     },
     modalOpenBtn: {
-      backgroundColor: green[500],
+      backgroundColor: lightBlue[500],
       '&:hover': {
-        backgroundColor: green[700]
+        backgroundColor: lightBlue[700]
       },
-      color: theme.palette.common.white
+      color: theme.palette.common.white,
+      fontWeight: 600
     }
   })
 );
@@ -86,6 +88,8 @@ interface LandingContentProps {
 
 const LandingContent: React.FC<LandingContentProps> = ({ onButtonClick }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <Grid
@@ -94,7 +98,7 @@ const LandingContent: React.FC<LandingContentProps> = ({ onButtonClick }) => {
       className={classes.gridContainer}
       alignItems='center'
     >
-      <Grid item xs={12} sm={9} md={6} className={classes.centerGrid}>
+      <Grid item sm={12} md={8} lg={6} className={classes.centerGrid}>
         <div className={classes.headerGrid}>
           <Typography
             variant='h1'
@@ -114,6 +118,7 @@ const LandingContent: React.FC<LandingContentProps> = ({ onButtonClick }) => {
               <Button
                 fullWidth
                 variant='contained'
+                size={isXsScreen ? 'medium' : 'large'}
                 onClick={(): void => onButtonClick(i)}
                 startIcon={info.btnIcon}
                 className={classes.modalOpenBtn}
