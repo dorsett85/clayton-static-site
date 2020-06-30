@@ -21,6 +21,11 @@ import quickModelVideo from '../../assets/img/quickmodel-vid.mp4';
 import ListSkillItem from '../ListSkillItem/ListSkillItem';
 import Highcharts from 'highcharts/highstock';
 
+const baseFetchUrl = `${
+  process.env.NODE_ENV === 'development' ? 'https://localhost:5001' : ''
+}/api`;
+console.log(baseFetchUrl);
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     belowDivider: {
@@ -84,7 +89,7 @@ const formatTickers = (tickers: string): string =>
  * Make a backend data request with the ticker string
  */
 const fetchTickerData = (tickers: string): Promise<any> =>
-  fetch(`http://localhost:3000/chartData/${tickers}`).then((res) => res.json());
+  fetch(`${baseFetchUrl}/stockchart/${tickers}`).then((res) => res.json());
 
 /**
  * Render a highcharts stock chart with data and an HTMLElement to render the
@@ -137,7 +142,7 @@ const LandingModalVisualization: React.FC = () => {
       if (stockChartRef.current) {
         renderChart(data, stockChartRef.current);
       }
-    } catch {
+    } catch (err) {
       setTickerHelperText('Error loading chart data');
     }
     setChartLoading(false);
