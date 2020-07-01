@@ -24,7 +24,6 @@ import Highcharts from 'highcharts/highstock';
 const baseFetchUrl = `${
   process.env.NODE_ENV === 'development' ? 'https://localhost:5001' : ''
 }/api`;
-console.log(baseFetchUrl);
 
 const useStyles = makeStyles((theme) =>
   createStyles({
