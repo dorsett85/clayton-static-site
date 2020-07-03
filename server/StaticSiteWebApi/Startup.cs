@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using StaticSiteWebApi.HttpClients;
+using StaticSiteWebApi.Models;
+using StaticSiteWebApi.Transforms;
 
 namespace StaticSiteWebApi
 {
@@ -27,7 +30,8 @@ namespace StaticSiteWebApi
                     builder => { builder.WithOrigins("http://localhost:8000"); });
             });
             services.AddControllers();
-            services.AddHttpClient();
+            services.AddHttpClient<IIntrinioClient, IntrinioClient>();
+            services.AddTransient<IStockChartDtoTransform, StockChartDtoTransform>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
