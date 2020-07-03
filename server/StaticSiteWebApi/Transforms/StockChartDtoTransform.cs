@@ -8,15 +8,16 @@ namespace StaticSiteWebApi.Transforms
     {
         public StockChartDto Create(IntrinioSecurityPrices securityPrices)
         {
-            var stockChartDto = new StockChartDto();
-            stockChartDto.Name = securityPrices.Security.Ticker;
-            stockChartDto.Data = securityPrices.StockPrices.Reverse().Select(security =>
+            var stockChartDto = new StockChartDto()
             {
-                // Convert the date to Unix timestamp
-                var unixTimestamp = DateTimeOffset.Parse(security.Date).ToUnixTimeMilliseconds();
-                float[] dataPoint = {unixTimestamp, security.Close};
-                return dataPoint;
-            });
+                Name = securityPrices.Security.Ticker,
+                Data = securityPrices.StockPrices.Reverse().Select(security =>
+                {
+                    // Convert the date to Unix timestamp
+                    var unixTimestamp = DateTimeOffset.Parse(security.Date).ToUnixTimeMilliseconds();
+                    return new DataPoint() { X = unixTimestamp, Y = security.Close};
+                })
+            };
             return stockChartDto;
         }
     }

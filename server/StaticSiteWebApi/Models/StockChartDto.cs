@@ -9,11 +9,20 @@ namespace StaticSiteWebApi.Models
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// A data list that contains array items of length 2. The first index
-        /// in the sub-array contains a date (represented as milliseconds since
-        /// Unix Epoch) and the second index is a closing price value in
-        /// dollars.
+        /// List of data points
         /// </summary>
-        public IEnumerable<float[]> Data { get; set; }
+        public IEnumerable<DataPoint> Data { get; set; }
+    }
+
+    public class DataPoint
+    {
+        /// <summary>
+        /// X-axis value
+        /// </summary>
+        public float X { get; set; }
+        /// <summary>
+        /// Y-axis value
+        /// </summary>
+        public float Y { get; set; }
     }
 }

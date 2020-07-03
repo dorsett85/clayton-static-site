@@ -20,6 +20,7 @@ import {
 import quickModelVideo from '../../assets/img/quickmodel-vid.mp4';
 import ListSkillItem from '../ListSkillItem/ListSkillItem';
 import Highcharts from 'highcharts/highstock';
+import { StockChartDto } from '../../types/stockChartDto';
 
 const baseFetchUrl = `${
   process.env.NODE_ENV === 'development' ? 'https://localhost:5001' : ''
@@ -87,22 +88,22 @@ const formatTickers = (tickers: string): string =>
 /**
  * Make a backend data request with the ticker string
  */
-const fetchTickerData = (tickers: string): Promise<any> =>
+const fetchTickerData = (tickers: string): Promise<StockChartDto[]> =>
   fetch(`${baseFetchUrl}/stockchart/${tickers}`).then((res) => res.json());
 
 /**
  * Render a highcharts stock chart with data and an HTMLElement to render the
  * chart into
  */
-const renderChart = (data: any, el: HTMLElement): void => {
+const renderChart = (data: StockChartDto[], el: HTMLElement): void => {
   Highcharts.stockChart(el, {
     title: {
       text: 'Closing Prices'
     },
     subtitle: {
       text: data
-        .filter((v: any) => v.data.length)
-        .map((v: any) => v.name)
+        .filter((v) => v.data.length)
+        .map((v) => v.name)
         .join(', ')
     },
     tooltip: {
