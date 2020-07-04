@@ -50,8 +50,6 @@ namespace StaticSiteWebApi
                 RequestPath = new PathString("")
             });
 
-            app.UseHttpsRedirection();
-
             app.UseCors();
 
             app.UseRouting();
