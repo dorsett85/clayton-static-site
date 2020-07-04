@@ -22,7 +22,7 @@ namespace StaticSiteWebApi.HttpClients
 
         public async Task<IntrinioSecurityPrices> GetSecurityPrices(string ticker)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"/securities/{ticker}/prices?page_size=300");
+            HttpResponseMessage response = await _httpClient.GetAsync($"/securities/{ticker}/prices");
             response.EnsureSuccessStatusCode();
             Stream responseStream = await response.Content.ReadAsStreamAsync();
             return await JsonSerializer.DeserializeAsync<IntrinioSecurityPrices>(responseStream,
