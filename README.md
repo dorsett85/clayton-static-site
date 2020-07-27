@@ -22,7 +22,15 @@ cd clayton-static-site/
 # Build Gatsby
 npm i
 npm run build
+
+# Build dotnet
+cd server/StaticSiteWebApi/
+dotnet build dotnet publish
 ```
+
+Next up we'll follow the tutorial at this link (starting from "Step 4 — Configuring the Web Server"):
+
+https://www.digitalocean.com/community/tutorials/how-to-deploy-an-asp-net-core-application-with-mysql-server-using-nginx-on-ubuntu-18-04
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
