@@ -26,7 +26,7 @@ npm run build
 # Build dotnet
 cd server/StaticSiteWebApi/
 dotnet build
-dotnet publish
+dotnet publish -c Release
 ```
 
 Next up we'll follow the tutorial at this link (starting from "Step 4 — Configuring the Web Server"):
