@@ -1,3 +1,29 @@
+Professional site with Dotnet Core, Typescript, and Gatsby
+
+https://cphillipsdorsett.com/
+
+## setup
+
+Required software
+1. node 10.18.1 (>=12 currently breaking Gatsby Build)
+2. dotnet core 3.1
+
+### production setup (ssh'd into server as sudo root user 'clayton')
+
+Required software (in addition to those required below the initial setup)
+1. nginx
+
+```shell
+cd /var/www/
+sudo git clone git@github.com:dorsett85/clayton-static-site
+sudo chown -R clayton:clayton clayton-static-site/
+cd clayton-static-site/
+
+# Build Gatsby
+npm i
+npm run build
+```
+
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.org">
