@@ -42,11 +42,14 @@ namespace StaticSiteWebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            // TODO The hardcoded production path is pretty ugly, maybe move to config 
+            var staticFolderPath = env.IsDevelopment()
+                ? Path.Combine(Directory.GetCurrentDirectory(), "../../public")
+                : "/var/www/clayton-static-site/public";
+            
             app.UseFileServer(new FileServerOptions()
             {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "../../public")
-                ),
+                FileProvider = new PhysicalFileProvider(staticFolderPath),
                 RequestPath = new PathString("")
             });
 
