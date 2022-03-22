@@ -19,6 +19,7 @@ import reactLogo from '../../assets/img/react-logo.png';
 import gatsbyLogo from '../../assets/img/gatsby-logo.png';
 import materialUiLogo from '../../assets/img/material-ui-logo.png';
 import bootstrapLogo from '../../assets/img/bootstrap-solid.svg';
+import springLogo from '../../assets/img/spring-logo.svg';
 import netCoreLogo from '../../assets/img/netcore-logo.png';
 import nodeLogo from '../../assets/img/node-logo.png';
 import djangoLogo from '../../assets/img/django-logo-negative.png';
@@ -147,8 +148,9 @@ const LandingModalDevelopment: React.FC = () => {
   return (
     <>
       <Typography gutterBottom>
-        Full-stack engineer with extensive production deployment experience. I have built
-        and maintained applications utilizing the following technologies:
+        Full-stack engineer with extensive experience deploying, designing, and
+        architecting enterprise level software. I have built and maintained applications
+        utilizing the following technologies:
       </Typography>
       <Grid container justify='center' spacing={1}>
         <Grid item xs={12} sm={6} md={4}>
@@ -177,6 +179,11 @@ const LandingModalDevelopment: React.FC = () => {
           <List
             subheader={<ListSubheader disableSticky>Backend Frameworks</ListSubheader>}
           >
+            <ListSkillItem
+              iconSrc={springLogo}
+              iconAlt='spring logo'
+              primaryText='Java/Spring'
+            />
             <ListSkillItem
               iconSrc={netCoreLogo}
               iconAlt='dotnet core logo'
