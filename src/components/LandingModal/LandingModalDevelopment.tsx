@@ -260,7 +260,7 @@ const LandingModalDevelopment: React.FC = () => {
           imgFluid={tripBuddyImage?.childImageSharp?.fluid as FluidObject}
         />
         <GridSampleAppItem
-          externalUrl={'https://pymodel.cphillipsdorsett.com'}
+          externalUrl={'https://quickmodel.cphillipsdorsett.com'}
           name={'QuickModel'}
           imgFluid={quickModelImage?.childImageSharp?.fluid as FluidObject}
         />
