@@ -27,7 +27,7 @@ export const personalImagesQuery = graphql`
         }
       }
     }
-    skiingJacksonImage: file(relativePath: { eq: "skiing-jackson.jpg" }) {
+    snowboardingWeehaukenImage: file(relativePath: { eq: "snowboarding-weehauken.jpg" }) {
       childImageSharp {
         fluid(maxHeight: 450) {
           ...GatsbyImageSharpFluid
@@ -69,7 +69,7 @@ const LandingModalPersonal: React.FC = () => {
     climbingEldoImage,
     climbingSilvertonImage,
     climbingTahoeImage,
-    skiingJacksonImage,
+    snowboardingWeehaukenImage,
     climbingRumneyImage,
     climbingTetonsImage
   } = useStaticQuery<PersonalImagesQuery>(personalImagesQuery);
@@ -84,6 +84,13 @@ const LandingModalPersonal: React.FC = () => {
       <Grid container spacing={1}>
         <Grid item xs={7}>
           <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <Img
+                fluid={snowboardingWeehaukenImage?.childImageSharp?.fluid as FluidObject}
+                className={classes.sampleMedia}
+                alt='skiing jackson'
+              />
+            </Grid>
             <Grid item xs={12}>
               <Img
                 fluid={climbingEldoImage?.childImageSharp?.fluid as FluidObject}
@@ -103,13 +110,6 @@ const LandingModalPersonal: React.FC = () => {
                 fluid={climbingTahoeImage?.childImageSharp?.fluid as FluidObject}
                 className={classes.sampleMedia}
                 alt='climbing tahoe'
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Img
-                fluid={skiingJacksonImage?.childImageSharp?.fluid as FluidObject}
-                className={classes.sampleMedia}
-                alt='skiing jackson'
               />
             </Grid>
           </Grid>
