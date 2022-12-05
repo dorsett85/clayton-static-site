@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createStyles, Fab, Popover, Theme, Zoom } from '@material-ui/core';
+import { createStyles, Fab, Popover, Theme } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import cpdHeadshot from '../../assets/img/cpd-headshot.jpg';
 import Typography from '@material-ui/core/Typography';
@@ -34,42 +34,44 @@ const ClaytonFab: React.FC<ClaytonFabProps> = ({ show }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   return (
-    <Zoom in={show}>
-      <div>
-        <Fab
-          aria-owns='contactPopover'
-          className={classes.fab}
-          onClick={({ currentTarget }): void => setAnchorEl(currentTarget)}
-        >
-          <Avatar src={cpdHeadshot} className={classes.cpdHeadshot} />
-        </Fab>
-        <Popover
-          open={!!anchorEl}
-          anchorEl={anchorEl}
-          onClose={(): void => setAnchorEl(null)}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left'
-          }}
-          transformOrigin={{
-            vertical: 'center',
-            horizontal: 'right'
-          }}
-        >
-          <div className={classes.contactPopoverText}>
-            <Typography variant='subtitle1'>Contact for consulting</Typography>
-            <Typography gutterBottom>claytonphillipsdorsett@gmail.com</Typography>
-            <a
-              href='https://github.com/dorsett85'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img src={githubIcon} alt='github icon' />
-            </a>
-          </div>
-        </Popover>
-      </div>
-    </Zoom>
+    <div hidden={!show}>
+      <Fab
+        aria-owns='contactPopover'
+        className={classes.fab}
+        onClick={({ currentTarget }): void => setAnchorEl(currentTarget)}
+      >
+        <Avatar
+          src={cpdHeadshot}
+          className={classes.cpdHeadshot}
+          alt='Clayton headshot'
+        />
+      </Fab>
+      <Popover
+        open={!!anchorEl}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left'
+        }}
+        transformOrigin={{
+          vertical: 'center',
+          horizontal: 'right'
+        }}
+      >
+        <div className={classes.contactPopoverText}>
+          <Typography variant='subtitle1'>Contact for consulting</Typography>
+          <Typography gutterBottom>claytonphillipsdorsett@gmail.com</Typography>
+          <a
+            href='https://github.com/dorsett85'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img src={githubIcon} alt='github icon' />
+          </a>
+        </div>
+      </Popover>
+    </div>
   );
 };
 

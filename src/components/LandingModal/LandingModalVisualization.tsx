@@ -194,7 +194,7 @@ const LandingModalVisualization: React.FC = () => {
       <Divider />
       <Grid
         container
-        justify='center'
+        justifyContent='center'
         alignItems='center'
         className={classes.belowDivider}
         spacing={3}

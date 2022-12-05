@@ -1,17 +1,14 @@
 import React from 'react';
-import { Helmet, MetaProps } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 
 interface SEOProps {
   title: string;
-  description?: string;
-  meta?: MetaProps[];
 }
 
-const SEO: React.FC<SEOProps> = ({ title, description, meta = [] }) => {
+const SEO: React.FC<SEOProps> = ({ title = [] }) => {
   const { site } = useStaticQuery(
     graphql`
-      query {
+      query getSiteMetadata {
         site {
           siteMetadata {
             title
@@ -23,48 +20,27 @@ const SEO: React.FC<SEOProps> = ({ title, description, meta = [] }) => {
     `
   );
 
-  const metaDescription = description || site.siteMetadata.description;
+  const metaDescription = site.siteMetadata.description;
+
+  const metaItems: { name: string; content: string }[] = [
+    { name: 'description', content: metaDescription },
+    { name: 'og:title', content: title },
+    { name: 'og:description', content: metaDescription },
+    { name: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:creator', content: site.siteMetadata.author },
+    { name: 'twitter:title', content: title },
+    { name: 'twitter:description', content: metaDescription }
+  ];
 
   return (
-    <Helmet
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription
-        },
-        {
-          property: `og:title`,
-          content: title
-        },
-        {
-          property: `og:description`,
-          content: metaDescription
-        },
-        {
-          property: `og:type`,
-          content: `website`
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author
-        },
-        {
-          name: `twitter:title`,
-          content: title
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription
-        },
-        ...meta
-      ]}
-    />
+    <>
+      <title>{`${title} | ${site.siteMetadata.title}`}</title>
+      {metaItems.map(({ name, content }) => (
+        <meta key={name} name={name} content={content} />
+      ))}
+      <meta charSet='utf-8' />
+    </>
   );
 };
 

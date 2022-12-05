@@ -94,7 +94,7 @@ const LandingContent: React.FC<LandingContentProps> = ({ onButtonClick }) => {
   return (
     <Grid
       container
-      justify='center'
+      justifyContent='center'
       className={classes.gridContainer}
       alignItems='center'
     >

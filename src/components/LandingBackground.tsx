@@ -27,7 +27,7 @@ export const landingBackgroundImageQuery = graphql`
   }
 `;
 
-const LandingBackground: React.FC = ({ children }) => {
+const LandingBackground: React.FC<React.PropsWithChildren> = ({ children }) => {
   const classes = useStyles();
   const { backgroundImage } = useStaticQuery<LandingBackgroundImageQuery>(
     landingBackgroundImageQuery

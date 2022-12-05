@@ -56,7 +56,7 @@ export const sampleAppImagesQuery = graphql`
         }
       }
     }
-    reactSweeperImage: file(relativePath: { eq: "reactSweeper.png" }) {
+    teamSweeperImage: file(relativePath: { eq: "team-sweeper.png" }) {
       childImageSharp {
         fluid(maxWidth: 600) {
           ...GatsbyImageSharpFluid
@@ -141,7 +141,7 @@ const LandingModalDevelopment: React.FC = () => {
     tripBuddyImage,
     quickModelImage,
     eMapImage,
-    reactSweeperImage,
+    teamSweeperImage,
     workoutTrackerImage
   } = useStaticQuery<SampleAppImagesQuery>(sampleAppImagesQuery);
 
@@ -152,7 +152,7 @@ const LandingModalDevelopment: React.FC = () => {
         architecting enterprise level software. I have built and maintained applications
         utilizing the following technologies:
       </Typography>
-      <Grid container justify='center' spacing={1}>
+      <Grid container justifyContent='center' spacing={1}>
         <Grid item xs={12} sm={6} md={4}>
           <List
             subheader={<ListSubheader disableSticky>Frontend Frameworks</ListSubheader>}
@@ -270,9 +270,9 @@ const LandingModalDevelopment: React.FC = () => {
           imgFluid={eMapImage?.childImageSharp?.fluid as FluidObject}
         />
         <GridSampleAppItem
-          externalUrl={'https://reactsweeper.cphillipsdorsett.com'}
-          name={'ReactSweeper'}
-          imgFluid={reactSweeperImage?.childImageSharp?.fluid as FluidObject}
+          externalUrl={'https://team-sweeper.cphillipsdorsett.com'}
+          name={'team-sweeper'}
+          imgFluid={teamSweeperImage?.childImageSharp?.fluid as FluidObject}
         />
         <GridSampleAppItem
           externalUrl={'https://workout-tracker.cphillipsdorsett.com'}
