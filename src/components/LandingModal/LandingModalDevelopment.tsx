@@ -1,9 +1,7 @@
 import React from 'react';
-import Img, { FluidObject } from 'gatsby-image';
+import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import { graphql, useStaticQuery } from 'gatsby';
 import {
-  makeStyles,
-  createStyles,
   Card,
   CardActionArea,
   CardContent,
@@ -12,8 +10,9 @@ import {
   Grid,
   List,
   ListSubheader,
+  styled,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import ListSkillItem from '../ListSkillItem/ListSkillItem';
 import reactLogo from '../../assets/img/react-logo.png';
 import gatsbyLogo from '../../assets/img/gatsby-logo.png';
@@ -37,59 +36,48 @@ export const sampleAppImagesQuery = graphql`
   query SampleAppImages {
     tripBuddyImage: file(relativePath: { eq: "trip-buddy.png" }) {
       childImageSharp {
-        fluid(maxWidth: 600) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 600, layout: CONSTRAINED)
       }
     }
     quickModelImage: file(relativePath: { eq: "quickmodel.png" }) {
       childImageSharp {
-        fluid(maxWidth: 600) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 600, layout: CONSTRAINED)
       }
     }
     eMapImage: file(relativePath: { eq: "emap.png" }) {
       childImageSharp {
-        fluid(maxWidth: 600) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 600, layout: CONSTRAINED)
       }
     }
     teamSweeperImage: file(relativePath: { eq: "team-sweeper.png" }) {
       childImageSharp {
-        fluid(maxWidth: 600) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 600, layout: CONSTRAINED)
       }
     }
     workoutTrackerImage: file(relativePath: { eq: "workout-tracker.png" }) {
       childImageSharp {
-        fluid(maxWidth: 600) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 600, layout: CONSTRAINED)
       }
     }
   }
 `;
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    belowDivider: {
-      marginTop: 12
-    },
-    sampleAppContent: {
-      padding: 5
-    },
-    sampleAppHeader: {
-      fontWeight: 1000
-    },
-    sampleMedia: {
-      width: '100%',
-      boxShadow: '0 0 1px #373737'
-    }
-  })
-);
+const BelowDivider = styled(Typography)`
+  margin-top: 12px;
+`;
+
+const SampleAppHeader = styled(CardHeader)`
+  font-weight: 1000;
+`;
+
+const SampleAppContent = styled(CardContent)`
+  padding: 5px;
+`;
+
+const SampleMedia = styled(GatsbyImage)`
+  width: 100%;
+  box-shadow: 0 0 1px #373737;
+`;
 
 /**
  * Handler for when a sample app card is clicked on
@@ -111,7 +99,7 @@ interface GridSampleAppItem {
   /**
    * Fluid property from gql image query
    */
-  imgFluid: FluidObject;
+  imgFluid: IGatsbyImageData;
 }
 
 const GridSampleAppItem: React.FC<GridSampleAppItem> = ({
@@ -119,16 +107,14 @@ const GridSampleAppItem: React.FC<GridSampleAppItem> = ({
   name,
   imgFluid
 }) => {
-  const classes = useStyles();
-
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card>
         <CardActionArea onClick={(): void => handleSampleAppClick(externalUrl)}>
-          <CardHeader subheader={name} classes={{ subheader: classes.sampleAppHeader }} />
-          <CardContent className={classes.sampleAppContent}>
-            <Img fluid={imgFluid} className={classes.sampleMedia} alt={name} />
-          </CardContent>
+          <SampleAppHeader subheader={name} />
+          <SampleAppContent>
+            <SampleMedia image={imgFluid} alt={name} />
+          </SampleAppContent>
         </CardActionArea>
       </Card>
     </Grid>
@@ -136,7 +122,6 @@ const GridSampleAppItem: React.FC<GridSampleAppItem> = ({
 };
 
 const LandingModalDevelopment: React.FC = () => {
-  const classes = useStyles();
   const {
     tripBuddyImage,
     quickModelImage,
@@ -250,34 +235,34 @@ const LandingModalDevelopment: React.FC = () => {
         </Grid>
       </Grid>
       <Divider />
-      <Typography variant='h6' paragraph className={classes.belowDivider}>
+      <BelowDivider variant='h6' paragraph>
         Sample Applications
-      </Typography>
+      </BelowDivider>
       <Grid container spacing={2}>
         <GridSampleAppItem
           externalUrl={'https://trip-buddy.cphillipsdorsett.com'}
           name={'trip-buddy'}
-          imgFluid={tripBuddyImage?.childImageSharp?.fluid as FluidObject}
+          imgFluid={tripBuddyImage?.childImageSharp?.gatsbyImageData}
         />
         <GridSampleAppItem
           externalUrl={'https://quickmodel.cphillipsdorsett.com'}
           name={'QuickModel'}
-          imgFluid={quickModelImage?.childImageSharp?.fluid as FluidObject}
+          imgFluid={quickModelImage?.childImageSharp?.gatsbyImageData}
         />
         <GridSampleAppItem
           externalUrl={'https://emap.cphillipsdorsett.com'}
           name={'eMap'}
-          imgFluid={eMapImage?.childImageSharp?.fluid as FluidObject}
+          imgFluid={eMapImage?.childImageSharp?.gatsbyImageData}
         />
         <GridSampleAppItem
           externalUrl={'https://team-sweeper.cphillipsdorsett.com'}
           name={'team-sweeper'}
-          imgFluid={teamSweeperImage?.childImageSharp?.fluid as FluidObject}
+          imgFluid={teamSweeperImage?.childImageSharp?.gatsbyImageData}
         />
         <GridSampleAppItem
           externalUrl={'https://workout-tracker.cphillipsdorsett.com'}
           name={'workout-tracker'}
-          imgFluid={workoutTrackerImage?.childImageSharp?.fluid as FluidObject}
+          imgFluid={workoutTrackerImage?.childImageSharp?.gatsbyImageData}
         />
       </Grid>
     </>

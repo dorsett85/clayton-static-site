@@ -1,51 +1,40 @@
 import React, { useState } from 'react';
-import { createStyles, Fab, Popover, Theme } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
+import { Fab, Popover, Avatar, Typography, styled } from '@mui/material';
 import cpdHeadshot from '../../assets/img/cpd-headshot.jpg';
-import Typography from '@material-ui/core/Typography';
 import githubIcon from '../../assets/img/GitHub-Mark-32px.png';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    fab: {
-      position: 'absolute',
-      bottom: 10,
-      right: 10
-    },
-    cpdHeadshot: {
-      borderRadius: 50,
-      width: 52,
-      height: 52
-    },
-    contactPopoverText: {
-      textAlign: 'center',
-      margin: theme.spacing(2)
-    }
-  })
-);
+const AvatarFab = styled(Fab)`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+`;
+
+const CpdAvatar = styled(Avatar)`
+  width: 52px;
+  height: 52px;
+  border-radius: 50px;
+`;
+
+const ContactTextContainer = styled('div')(({ theme }) => ({
+  textAlign: 'center',
+  margin: theme.spacing(2)
+}));
 
 interface ClaytonFabProps {
   show: boolean;
 }
 
 const ClaytonFab: React.FC<ClaytonFabProps> = ({ show }) => {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   return (
     <div hidden={!show}>
-      <Fab
+      <AvatarFab
         aria-owns='contactPopover'
-        className={classes.fab}
         onClick={({ currentTarget }): void => setAnchorEl(currentTarget)}
       >
-        <Avatar
-          src={cpdHeadshot}
-          className={classes.cpdHeadshot}
-          alt='Clayton headshot'
-        />
-      </Fab>
+        <CpdAvatar src={cpdHeadshot} alt='Clayton headshot' />
+      </AvatarFab>
       <Popover
         open={!!anchorEl}
         anchorEl={anchorEl}
@@ -59,7 +48,7 @@ const ClaytonFab: React.FC<ClaytonFabProps> = ({ show }) => {
           horizontal: 'right'
         }}
       >
-        <div className={classes.contactPopoverText}>
+        <ContactTextContainer>
           <Typography variant='subtitle1'>Contact for consulting</Typography>
           <Typography gutterBottom>claytonphillipsdorsett@gmail.com</Typography>
           <a
@@ -69,7 +58,7 @@ const ClaytonFab: React.FC<ClaytonFabProps> = ({ show }) => {
           >
             <img src={githubIcon} alt='github icon' />
           </a>
-        </div>
+        </ContactTextContainer>
       </Popover>
     </div>
   );

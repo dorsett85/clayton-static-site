@@ -1,4 +1,6 @@
-module.exports = {
+import { GatsbyConfig } from 'gatsby';
+
+const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Clayton Phillips-Dorsett',
     description: 'Professional site for Clayton Phillips-Dorsett',
@@ -6,6 +8,9 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-ts',
+    'gatsby-plugin-image',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     'gatsby-plugin-material-ui',
     {
       resolve: 'gatsby-source-filesystem',
@@ -14,8 +19,6 @@ module.exports = {
         path: `${__dirname}/src/assets/img`
       }
     },
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -28,8 +31,7 @@ module.exports = {
         icon: 'src/assets/img/favicon.png' // This path is relative to the root of the site.
       }
     }
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
   ]
 };
+
+export default config;

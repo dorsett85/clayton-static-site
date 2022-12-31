@@ -7,13 +7,11 @@ import {
   DialogProps,
   DialogTitle,
   Slide,
-  SlideProps,
-  useMediaQuery,
-  useTheme
-} from '@material-ui/core';
-import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import CloseIcon from '@material-ui/icons/Close';
+  SlideProps
+} from '@mui/material';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import CloseIcon from '@mui/icons-material/Close';
 import { modalInfoList } from './modalInfo';
 
 interface LandingModalProps extends Pick<DialogProps, 'open'> {
@@ -46,8 +44,6 @@ const LandingModal: React.FC<LandingModalProps> = ({
   modalInfoIdx,
   onModalInfoIdxChange
 }) => {
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
   const modalInfo = modalInfoList[modalInfoIdx];
 
   // Handler to move between the different modal screens. This will loop through
@@ -69,7 +65,6 @@ const LandingModal: React.FC<LandingModalProps> = ({
     <Dialog
       open={open}
       fullWidth
-      fullScreen={isSmallScreen}
       maxWidth='md'
       TransitionComponent={ModalTransition}
       onClose={onClose}

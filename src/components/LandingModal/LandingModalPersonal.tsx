@@ -1,6 +1,6 @@
 import React from 'react';
-import Img, { FluidObject } from 'gatsby-image';
-import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import { Grid, Typography, styled } from '@mui/material';
 import { graphql, useStaticQuery } from 'gatsby';
 import { PersonalImagesQuery } from '../../../graphql-types';
 
@@ -8,63 +8,43 @@ export const personalImagesQuery = graphql`
   query PersonalImages {
     climbingEldoImage: file(relativePath: { eq: "climbing-eldo.jpg" }) {
       childImageSharp {
-        fluid(maxHeight: 450) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(height: 450, layout: FULL_WIDTH)
       }
     }
     climbingSilvertonImage: file(relativePath: { eq: "climbing-silverton.jpg" }) {
       childImageSharp {
-        fluid(maxHeight: 450) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(height: 450, layout: FULL_WIDTH)
       }
     }
     climbingTahoeImage: file(relativePath: { eq: "climbing-tahoe.jpg" }) {
       childImageSharp {
-        fluid(maxHeight: 450) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(height: 450, layout: FULL_WIDTH)
       }
     }
     snowboardingWeehaukenImage: file(relativePath: { eq: "snowboarding-weehauken.jpg" }) {
       childImageSharp {
-        fluid(maxHeight: 450) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(height: 450, layout: FULL_WIDTH)
       }
     }
     climbingRumneyImage: file(relativePath: { eq: "climbing-rumney.jpg" }) {
       childImageSharp {
-        fluid(maxHeight: 900) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(height: 900, layout: FULL_WIDTH)
       }
     }
     climbingTetonsImage: file(relativePath: { eq: "climbing-tetons.jpg" }) {
       childImageSharp {
-        fluid(maxHeight: 900) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(height: 900, layout: FULL_WIDTH)
       }
     }
   }
 `;
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    spacingAbove: {
-      marginTop: theme.spacing(2)
-    },
-    sampleMedia: {
-      width: '100%',
-      boxShadow: '0 0 1px #373737'
-    }
-  })
-);
+const PersonalImage = styled(GatsbyImage)`
+  width: 100%;
+  box-shadow: 0 0 1px #373737;
+`;
 
 const LandingModalPersonal: React.FC = () => {
-  const classes = useStyles();
   const {
     climbingEldoImage,
     climbingSilvertonImage,
@@ -85,30 +65,26 @@ const LandingModalPersonal: React.FC = () => {
         <Grid item xs={7}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <Img
-                fluid={snowboardingWeehaukenImage?.childImageSharp?.fluid as FluidObject}
-                className={classes.sampleMedia}
+              <PersonalImage
+                image={snowboardingWeehaukenImage?.childImageSharp?.gatsbyImageData}
                 alt='skiing jackson'
               />
             </Grid>
             <Grid item xs={12}>
-              <Img
-                fluid={climbingEldoImage?.childImageSharp?.fluid as FluidObject}
-                className={classes.sampleMedia}
+              <PersonalImage
+                image={climbingEldoImage?.childImageSharp?.gatsbyImageData}
                 alt='climbing eldo'
               />
             </Grid>
             <Grid item xs={12}>
-              <Img
-                fluid={climbingSilvertonImage?.childImageSharp?.fluid as FluidObject}
-                className={classes.sampleMedia}
+              <PersonalImage
+                image={climbingSilvertonImage?.childImageSharp?.gatsbyImageData}
                 alt='climbing silverton'
               />
             </Grid>
             <Grid item xs={12}>
-              <Img
-                fluid={climbingTahoeImage?.childImageSharp?.fluid as FluidObject}
-                className={classes.sampleMedia}
+              <PersonalImage
+                image={climbingTahoeImage?.childImageSharp?.gatsbyImageData}
                 alt='climbing tahoe'
               />
             </Grid>
@@ -117,16 +93,14 @@ const LandingModalPersonal: React.FC = () => {
         <Grid item xs={5}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <Img
-                fluid={climbingRumneyImage?.childImageSharp?.fluid as FluidObject}
-                className={classes.sampleMedia}
+              <PersonalImage
+                image={climbingRumneyImage?.childImageSharp?.gatsbyImageData}
                 alt='climbing rumney'
               />
             </Grid>
             <Grid item xs={12}>
-              <Img
-                fluid={climbingTetonsImage?.childImageSharp?.fluid as FluidObject}
-                className={classes.sampleMedia}
+              <PersonalImage
+                image={climbingTetonsImage?.childImageSharp?.gatsbyImageData}
                 alt='climbing tetons'
               />
             </Grid>

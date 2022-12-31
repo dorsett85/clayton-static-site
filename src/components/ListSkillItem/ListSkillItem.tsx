@@ -1,27 +1,14 @@
 import React from 'react';
-import {
-  createStyles,
-  makeStyles,
-  ListItem,
-  ListItemIcon,
-  ListItemText
-} from '@material-ui/core';
-import { blue, green, yellow } from '@material-ui/core/colors';
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { blue, green, yellow } from '@mui/material/colors';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import { ClassNames } from '@emotion/react';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    yellow: {
-      color: yellow[500]
-    },
-    green: {
-      color: green[500]
-    },
-    blue: {
-      color: blue[500]
-    }
-  })
-);
+const iconColors = {
+  yellow: yellow[500],
+  green: green[500],
+  blue: blue[500]
+};
 
 interface ListSkillItemProps {
   /**
@@ -56,11 +43,16 @@ const ListSkillItem: React.FC<ListSkillItemProps> = ({
   primaryText,
   secondaryText
 }) => {
-  const classes = useStyles();
-
   // If an iconSrc wasn't passed in then use the IconComponent prop
   const icon = !iconSrc ? (
-    <IconComponent alt={iconAlt} className={classes[iconComponentColor]} />
+    <ClassNames>
+      {({ css }) => (
+        <IconComponent
+          alt={iconAlt}
+          className={css({ color: iconColors[iconComponentColor] })}
+        />
+      )}
+    </ClassNames>
   ) : (
     <img src={iconSrc} height={40} width={40} alt={iconAlt} />
   );

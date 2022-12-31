@@ -1,8 +1,8 @@
 # Dependency directories
 node_modules/
 
-# dotenv environment variable files
-.env*
+# yarn files
+yarn-error.log
 
 # gatsby files
 .cache/

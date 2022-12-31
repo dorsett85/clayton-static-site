@@ -330,6 +330,25 @@ export type SiteBuildMetadataBuildTimeArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+export type GatsbyImageFormat =
+  | 'NO_CHANGE'
+  | 'AUTO'
+  | 'JPG'
+  | 'PNG'
+  | 'WEBP'
+  | 'AVIF';
+
+export type GatsbyImageLayout =
+  | 'FIXED'
+  | 'FULL_WIDTH'
+  | 'CONSTRAINED';
+
+export type GatsbyImagePlaceholder =
+  | 'DOMINANT_COLOR'
+  | 'TRACED_SVG'
+  | 'BLURRED'
+  | 'NONE';
+
 export type ImageFormat =
   | 'NO_CHANGE'
   | 'AUTO'
@@ -2288,20 +2307,15 @@ export type ImageSharpGroupConnectionGroupArgs = {
   field: ImageSharpFieldSelector;
 };
 
-export type LandingBackgroundImageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LandingBackgroundImageQuery = { backgroundImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null };
-
 export type SampleAppImagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SampleAppImagesQuery = { tripBuddyImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null, quickModelImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null, eMapImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null, teamSweeperImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null, workoutTrackerImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null };
+export type SampleAppImagesQuery = { tripBuddyImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null, quickModelImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null, eMapImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null, teamSweeperImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null, workoutTrackerImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null };
 
 export type PersonalImagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PersonalImagesQuery = { climbingEldoImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null, climbingSilvertonImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null, climbingTahoeImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null, snowboardingWeehaukenImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null, climbingRumneyImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null, climbingTetonsImage?: { childImageSharp?: { fluid?: { base64?: string | null, aspectRatio: number, src: string, srcSet: string, sizes: string } | null } | null } | null };
+export type PersonalImagesQuery = { climbingEldoImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null, climbingSilvertonImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null, climbingTahoeImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null, snowboardingWeehaukenImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null, climbingRumneyImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null, climbingTetonsImage?: { childImageSharp?: { gatsbyImageData: any } | null } | null };
 
 export type GetSiteMetadataQueryVariables = Exact<{ [key: string]: never; }>;
 

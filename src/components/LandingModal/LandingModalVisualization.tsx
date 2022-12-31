@@ -1,13 +1,5 @@
-import React, {
-  ChangeEventHandler,
-  SyntheticEvent,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import {
-  makeStyles,
-  createStyles,
   Button,
   CircularProgress,
   Divider,
@@ -15,8 +7,9 @@ import {
   List,
   ListSubheader,
   TextField,
-  Typography
-} from '@material-ui/core';
+  Typography,
+  styled
+} from '@mui/material';
 import quickModelVideo from '../../assets/img/quickmodel-vid.mp4';
 import ListSkillItem from '../ListSkillItem/ListSkillItem';
 import Highcharts from 'highcharts/highstock';
@@ -26,37 +19,38 @@ const baseFetchUrl = `${
   process.env.NODE_ENV === 'development' ? 'https://localhost:5001' : ''
 }/api`;
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    belowDivider: {
-      marginTop: 12
-    },
-    sampleMedia: {
-      width: '100%',
-      boxShadow: '0 0 1px #373737'
-    },
-    tickerInputDiv: {
-      display: 'inline-flex',
-      flexWrap: 'wrap',
-      alignItems: 'baseline'
-    },
-    chartDivContainer: {
-      position: 'relative',
-      height: 400,
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2)
-    },
-    chartLoader: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)'
-    },
-    chartDiv: {
-      height: '100%'
-    }
-  })
-);
+const TickerForm = styled('form')`
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+`;
+
+const ChartContainer = styled('div')(({ theme }) => ({
+  position: 'relative',
+  height: 400,
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2)
+}));
+
+const ChartLoader = styled('div')`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const ChartElement = styled('div')`
+  height: 100%;
+`;
+
+const BelowDivider = styled(Grid)`
+  margin-top: 12px;
+`;
+
+const VisualizationVideo = styled('video')`
+  width: 100%;
+  box-shadow: 0 0 1px #373737;
+`;
 
 /**
  * Validate the ticker input string
@@ -116,19 +110,12 @@ const renderChart = (data: StockChartDto[], el: HTMLElement): void => {
 };
 
 const LandingModalVisualization: React.FC = () => {
-  const classes = useStyles();
   const [tickers, setTickers] = useState('');
   const [tickerHelperText, setTickerHelperText] = useState('');
   const [chartLoading, setChartLoading] = useState(true);
   const stockChartRef = useRef<HTMLDivElement | null>(null);
 
-  const makeChart = async (e?: SyntheticEvent): Promise<void> => {
-    // If this function is fired from a form submission, make sure to run
-    // preventDefault on the event.
-    if (e) {
-      e.preventDefault();
-    }
-
+  const makeChart = async (): Promise<void> => {
     // Format the ticker string to send to the backend
     const formattedTickers = formatTickers(tickers);
 
@@ -158,6 +145,11 @@ const LandingModalVisualization: React.FC = () => {
     setTickerHelperText(validateTickers(tickers));
   }, [tickers]);
 
+  const handleOnFormSubmit: React.FormEventHandler = (e) => {
+    e.preventDefault();
+    makeChart();
+  };
+
   const handleTextOnInput: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     setTickers(target.value);
   };
@@ -166,7 +158,7 @@ const LandingModalVisualization: React.FC = () => {
     <div>
       <Grid container>
         <Grid item xs={12}>
-          <form className={classes.tickerInputDiv} onSubmit={makeChart}>
+          <TickerForm onSubmit={handleOnFormSubmit}>
             <TextField
               label='Enter stock tickers'
               placeholder='e.g., AAPL, GOOG'
@@ -180,29 +172,23 @@ const LandingModalVisualization: React.FC = () => {
             >
               Update
             </Button>
-          </form>
+          </TickerForm>
         </Grid>
       </Grid>
-      <div className={classes.chartDivContainer}>
+      <ChartContainer>
         {chartLoading && (
-          <div className={classes.chartLoader}>
+          <ChartLoader>
             <CircularProgress size={100} />
-          </div>
+          </ChartLoader>
         )}
-        <div ref={stockChartRef} className={classes.chartDiv} />
-      </div>
+        <ChartElement ref={stockChartRef} />
+      </ChartContainer>
       <Divider />
-      <Grid
-        container
-        justifyContent='center'
-        alignItems='center'
-        className={classes.belowDivider}
-        spacing={3}
-      >
+      <BelowDivider container justifyContent='center' alignItems='center' spacing={3}>
         <Grid item xs={12} sm={6}>
-          <video className={classes.sampleMedia} playsInline muted autoPlay loop>
+          <VisualizationVideo playsInline muted autoPlay loop>
             <source src={quickModelVideo} type='video/mp4' />
-          </video>
+          </VisualizationVideo>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography gutterBottom>
@@ -214,7 +200,7 @@ const LandingModalVisualization: React.FC = () => {
             I now offer analytic applications with the following libraries:
           </Typography>
         </Grid>
-      </Grid>
+      </BelowDivider>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={4}>
           <List subheader={<ListSubheader disableSticky>Javascript</ListSubheader>}>

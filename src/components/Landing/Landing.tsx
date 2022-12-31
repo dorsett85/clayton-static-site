@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { CssBaseline } from '@material-ui/core';
-import LandingBackground from '../LandingBackground';
+import LandingBackground from '../LandingBackground/LandingBackground';
 import LandingContent from '../LandingContent/LandingContent';
 import LandingModal from '../LandingModal/LandingModal';
 import LandingFab from '../LandingFab/LandingFab';
@@ -20,10 +19,8 @@ const Landing: React.FC = () => {
 
   return (
     <>
-      <CssBaseline />
-      <LandingBackground>
-        <LandingContent onButtonClick={handleOnModalIdxChange} />
-      </LandingBackground>
+      <LandingBackground />
+      <LandingContent onButtonClick={handleOnModalIdxChange} />
       <LandingModal
         open={openModal}
         onClose={handleOnModalClose}
