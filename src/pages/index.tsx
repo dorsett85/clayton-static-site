@@ -16,5 +16,5 @@ const IndexPage: React.FC = () => {
 export default IndexPage;
 
 export const Head = () => {
-  return <Seo title={'Home'} />;
+  return <Seo title='Home' />;
 };

@@ -7,18 +7,6 @@ const config: GatsbyConfig = {
     author: 'Clayton Phillips-Dorsett'
   },
   plugins: [
-    'gatsby-plugin-ts',
-    'gatsby-plugin-image',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-material-ui',
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: `${__dirname}/src/assets/img`
-      }
-    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -30,7 +18,19 @@ const config: GatsbyConfig = {
         display: 'minimal-ui',
         icon: 'src/assets/img/favicon.png' // This path is relative to the root of the site.
       }
-    }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: `${__dirname}/src/assets/img`
+      }
+    },
+    'gatsby-plugin-ts',
+    'gatsby-plugin-image',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-material-ui'
   ]
 };
 

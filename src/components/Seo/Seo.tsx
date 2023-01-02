@@ -39,7 +39,7 @@ const SEO: React.FC<SEOProps> = ({ title = [] }) => {
       {metaItems.map(({ name, content }) => (
         <meta key={name} name={name} content={content} />
       ))}
-      <meta charSet='utf-8' />
+      <meta httpEquiv='Content-Type' content='text/html; charset=utf-8' />
     </>
   );
 };

@@ -17,7 +17,7 @@ export const SkillListGrid: React.FC<SkillListGridProps> = ({
 }) => {
   return (
     <Grid item xs={12} sm={6} md={4}>
-      <Typography variant='h4' fontSize={22}>
+      <Typography variant='h3' fontSize={22}>
         {headingText}
       </Typography>
       <List>

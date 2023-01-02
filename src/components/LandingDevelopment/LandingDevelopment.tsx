@@ -25,25 +25,17 @@ const SampleAppImageWrapper = styled('div')`
   box-shadow: 0 0 1px #373737;
 `;
 
-/**
- * Handler for when a sample app card is clicked on
- */
-const handleSampleAppClick = (url: string): void => {
-  window.open(url, '_blank');
-};
-
 interface GridSampleAppItem {
   /**
    * External url path
    */
   externalUrl: string;
   /**
-   * Name of the app that will display as the card sub-header and alt attribute
-   * for the image
+   * Name of the app that will display as the card sub-header
    */
   name: string;
   /**
-   * Fluid property from gql image query
+   * Image element
    */
   image: React.ReactElement;
 }
@@ -56,7 +48,7 @@ const GridSampleAppItem: React.FC<GridSampleAppItem> = ({ externalUrl, name, ima
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card>
-        <CardActionArea onClick={() => handleSampleAppClick(externalUrl)}>
+        <CardActionArea href={externalUrl} target='_blank' rel='noopener noreferrer'>
           <SampleAppHeader subheader={name} />
           <SampleAppContent>
             <SampleAppImageWrapper>{image}</SampleAppImageWrapper>
@@ -104,7 +96,7 @@ const LandingDevelopment: React.FC = () => {
             <StaticImage
               src='../../assets/img/trip-buddy.png'
               {...sampleAppImageSize}
-              alt=''
+              alt='Trip Buddy'
             />
           }
         />
@@ -115,7 +107,7 @@ const LandingDevelopment: React.FC = () => {
             <StaticImage
               src='../../assets/img/quickmodel.png'
               {...sampleAppImageSize}
-              alt=''
+              alt='Quick Model'
             />
           }
         />
@@ -123,7 +115,11 @@ const LandingDevelopment: React.FC = () => {
           externalUrl='https://emap.cphillipsdorsett.com'
           name='eMap'
           image={
-            <StaticImage src='../../assets/img/emap.png' {...sampleAppImageSize} alt='' />
+            <StaticImage
+              src='../../assets/img/emap.png'
+              {...sampleAppImageSize}
+              alt='eMap'
+            />
           }
         />
         <GridSampleAppItem
@@ -133,7 +129,7 @@ const LandingDevelopment: React.FC = () => {
             <StaticImage
               src='../../assets/img/team-sweeper.png'
               {...sampleAppImageSize}
-              alt=''
+              alt='Team Sweeper'
             />
           }
         />
@@ -144,7 +140,7 @@ const LandingDevelopment: React.FC = () => {
             <StaticImage
               src='../../assets/img/workout-tracker.png'
               {...sampleAppImageSize}
-              alt=''
+              alt='Workout Tracker'
             />
           }
         />

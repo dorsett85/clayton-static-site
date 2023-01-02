@@ -1,7 +1,12 @@
 import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import { StockChartDto } from '../../types/stockChartDto';
 import Highcharts from 'highcharts/highstock';
+import highchartsAccessibility from 'highcharts/modules/accessibility';
 import { Button, CircularProgress, styled, TextField } from '@mui/material';
+
+if (typeof window !== 'undefined') {
+  highchartsAccessibility(Highcharts);
+}
 
 const baseFetchUrl = `${
   process.env.NODE_ENV === 'development' ? 'https://localhost:5001' : ''
@@ -87,7 +92,7 @@ const renderChart = (data: StockChartDto[], el: HTMLElement): void => {
   });
 };
 
-export const StockChart: React.FC = () => {
+export const StockChartWidget: React.FC = () => {
   const [tickers, setTickers] = useState('');
   const [tickerHelperText, setTickerHelperText] = useState('');
   const [chartLoading, setChartLoading] = useState(false);
@@ -118,7 +123,7 @@ export const StockChart: React.FC = () => {
     // appease Gatsby build and make sure the browser has the intersection
     // observer.
     if (
-      window !== undefined &&
+      typeof window !== 'undefined' &&
       'IntersectionObserver' in window &&
       chartContainerRef.current
     ) {

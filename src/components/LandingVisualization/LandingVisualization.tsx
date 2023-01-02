@@ -4,7 +4,7 @@ import quickModelVideo from '../../assets/img/quickmodel-vid.mp4';
 import { skillItemData } from '../ListSkillItem/skillItemData';
 import { SkillListGrid } from '../SkillListGrid/SkillListGrid';
 import { LandingSection } from '../LandingSection/LandingSection';
-import { StockChart } from './StockChart';
+import { StockChartWidget } from './StockChartWidget';
 
 const VisualizationVideo = styled('video')`
   width: 100%;
@@ -37,7 +37,7 @@ const LandingVisualization: React.FC = () => {
           </VisualizationVideo>
         </Grid>
       </Grid>
-      <StockChart />
+      <StockChartWidget />
       <Typography fontSize={20} mb={3}>
         Analytic applications are available with (but not limited to) the following
         libraries:

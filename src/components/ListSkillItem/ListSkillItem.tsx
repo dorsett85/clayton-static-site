@@ -2,15 +2,10 @@ import React from 'react';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
 interface ListSkillItemProps {
-  icon?: React.ReactElement;
   /**
-   * Alt attribute for the icon
+   * Image element
    */
-  iconAlt?: string;
-  /**
-   * Src attribute for the icon if IconComponent is undefined
-   */
-  iconSrc?: string;
+  icon: React.ReactElement;
   /**
    * Passed to "primary" property of a MUI ListItemText component
    */
@@ -23,18 +18,12 @@ interface ListSkillItemProps {
 
 const ListSkillItem: React.FC<ListSkillItemProps> = ({
   icon,
-  iconSrc,
-  iconAlt = 'assessment icon',
   primaryText,
   secondaryText
 }) => {
-  // If an iconSrc wasn't passed in then use the IconComponent prop
-  const iconElement =
-    icon || (iconSrc ? <img src={iconSrc} height={40} width={40} alt={iconAlt} /> : null);
-
   return (
     <ListItem>
-      <ListItemIcon>{iconElement}</ListItemIcon>
+      <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText primary={primaryText} secondary={secondaryText} />
     </ListItem>
   );
