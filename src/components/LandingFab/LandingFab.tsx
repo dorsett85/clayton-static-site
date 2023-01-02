@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { StaticImage } from 'gatsby-plugin-image';
 import { Fab, Popover, Avatar, Typography, styled } from '@mui/material';
 import cpdHeadshot from '../../assets/img/cpd-headshot.jpg';
-import githubIcon from '../../assets/img/GitHub-Mark-32px.png';
+
+const POPOVER_ID = 'contact-popover';
 
 const CpdFab = styled(Fab)`
   position: fixed;
@@ -26,12 +28,13 @@ export const LandingFab: React.FC = () => {
   return (
     <>
       <CpdFab
-        aria-owns='contactPopover'
+        aria-describedby={POPOVER_ID}
         onClick={({ currentTarget }): void => setAnchorEl(currentTarget)}
       >
         <CpdAvatar src={cpdHeadshot} alt='Clayton headshot' />
       </CpdFab>
       <Popover
+        id={POPOVER_ID}
         open={!!anchorEl}
         anchorEl={anchorEl}
         onClose={() => setAnchorEl(null)}
@@ -43,6 +46,7 @@ export const LandingFab: React.FC = () => {
           vertical: 'center',
           horizontal: 'right'
         }}
+        disableScrollLock
       >
         <ContactTextContainer>
           <Typography variant='subtitle1'>Contact for consulting</Typography>
@@ -52,7 +56,11 @@ export const LandingFab: React.FC = () => {
             target='_blank'
             rel='noopener noreferrer'
           >
-            <img src={githubIcon} alt='github icon' />
+            <StaticImage
+              src='../../assets/img/GitHub-Mark-32px.png'
+              placeholder='none'
+              alt='github icon'
+            />
           </a>
         </ContactTextContainer>
       </Popover>
