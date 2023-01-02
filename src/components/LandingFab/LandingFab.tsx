@@ -3,10 +3,10 @@ import { Fab, Popover, Avatar, Typography, styled } from '@mui/material';
 import cpdHeadshot from '../../assets/img/cpd-headshot.jpg';
 import githubIcon from '../../assets/img/GitHub-Mark-32px.png';
 
-const AvatarFab = styled(Fab)`
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
+const CpdFab = styled(Fab)`
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
 `;
 
 const CpdAvatar = styled(Avatar)`
@@ -20,21 +20,17 @@ const ContactTextContainer = styled('div')(({ theme }) => ({
   margin: theme.spacing(2)
 }));
 
-interface ClaytonFabProps {
-  show: boolean;
-}
-
-const ClaytonFab: React.FC<ClaytonFabProps> = ({ show }) => {
+export const LandingFab: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   return (
-    <div hidden={!show}>
-      <AvatarFab
+    <>
+      <CpdFab
         aria-owns='contactPopover'
         onClick={({ currentTarget }): void => setAnchorEl(currentTarget)}
       >
         <CpdAvatar src={cpdHeadshot} alt='Clayton headshot' />
-      </AvatarFab>
+      </CpdFab>
       <Popover
         open={!!anchorEl}
         anchorEl={anchorEl}
@@ -60,8 +56,6 @@ const ClaytonFab: React.FC<ClaytonFabProps> = ({ show }) => {
           </a>
         </ContactTextContainer>
       </Popover>
-    </div>
+    </>
   );
 };
-
-export default ClaytonFab;

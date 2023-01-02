@@ -1,33 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LandingBackground from '../LandingBackground/LandingBackground';
 import LandingContent from '../LandingContent/LandingContent';
-import LandingModal from '../LandingModal/LandingModal';
-import LandingFab from '../LandingFab/LandingFab';
+import { LandingFab } from '../LandingFab/LandingFab';
+import LandingDevelopment from '../LandingDevelopment/LandingDevelopment';
+import { Container, Divider } from '@mui/material';
+import LandingVisualization from '../LandingVisualization/LandingVisualization';
+import LandingPersonal from '../LandingPersonal/LandingPersonal';
 
 const Landing: React.FC = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const [modalInfoIdx, setModalInfoIdx] = useState<number>(0);
-
-  const handleOnModalIdxChange = (idx: number): void => {
-    setModalInfoIdx(idx);
-    if (!openModal) {
-      setOpenModal(true);
-    }
-  };
-
-  const handleOnModalClose = (): void => setOpenModal(false);
-
   return (
     <>
       <LandingBackground />
-      <LandingContent onButtonClick={handleOnModalIdxChange} />
-      <LandingModal
-        open={openModal}
-        onClose={handleOnModalClose}
-        modalInfoIdx={modalInfoIdx}
-        onModalInfoIdxChange={handleOnModalIdxChange}
-      />
-      <LandingFab show={!openModal} />
+      <LandingContent />
+      <Container maxWidth='lg'>
+        <LandingDevelopment />
+        <Divider />
+        <LandingVisualization />
+        <Divider />
+        <LandingPersonal />
+      </Container>
+      <LandingFab />
     </>
   );
 };

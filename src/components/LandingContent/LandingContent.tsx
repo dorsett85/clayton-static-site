@@ -9,7 +9,13 @@ import {
   useTheme
 } from '@mui/material';
 import { lightBlue } from '@mui/material/colors';
-import { modalInfoList } from '../LandingModal/modalInfo';
+import { Build, PersonPinCircle, TrendingUp } from '@mui/icons-material';
+
+const linkInfo = [
+  { text: 'Development', icon: <Build />, hashRef: '#software-development' },
+  { text: 'Visualization', icon: <TrendingUp />, hashRef: '#data-visualization' },
+  { text: 'Personal', icon: <PersonPinCircle />, hashRef: '#personal' }
+];
 
 const slideInDown = keyframes`
   from {
@@ -34,7 +40,7 @@ const zoomIn = keyframes`
 `;
 
 const OverlayContainer = styled('div')`
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,15 +96,7 @@ const SectionButton = styled(Button)(({ theme }) => ({
   fontWeight: 600
 }));
 
-interface LandingContentProps {
-  /**
-   * When a landing button is clicked. The idx argument will set the correct
-   * modal content to display.
-   */
-  onButtonClick: (idx: number) => void;
-}
-
-const LandingContent: React.FC<LandingContentProps> = ({ onButtonClick }) => {
+const LandingContent: React.FC = () => {
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -114,16 +112,16 @@ const LandingContent: React.FC<LandingContentProps> = ({ onButtonClick }) => {
           </SubHeadingText>
         </HeadingContainer>
         <ButtonGrid container spacing={2}>
-          {modalInfoList.map((info, i) => (
-            <Grid key={info.btnTxt} item xs={12} sm={4}>
+          {linkInfo.map((info) => (
+            <Grid key={info.text} item xs={12} sm={4}>
               <SectionButton
                 fullWidth
                 variant='contained'
                 size={isXsScreen ? 'medium' : 'large'}
-                onClick={() => onButtonClick(i)}
-                startIcon={info.btnIcon}
+                startIcon={info.icon}
+                href={info.hashRef}
               >
-                {info.btnTxt}
+                {info.text}
               </SectionButton>
             </Grid>
           ))}
