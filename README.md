@@ -20,7 +20,7 @@ sudo chown -R clayton:clayton clayton-static-site/
 cd clayton-static-site/
 
 # Build Gatsby
-yarn i
+yarn install
 yarn build
 
 # Build dotnet
