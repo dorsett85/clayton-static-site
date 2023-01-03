@@ -3,7 +3,6 @@ import { StockChartDto } from '../../types/stockChartDto';
 import Highcharts from 'highcharts/highstock';
 import highchartsAccessibility from 'highcharts/modules/accessibility';
 import { styled } from '@mui/material';
-import { ChartContainer } from './utils';
 
 if (typeof window !== 'undefined') {
   highchartsAccessibility(Highcharts);
@@ -11,7 +10,6 @@ if (typeof window !== 'undefined') {
 
 interface StockChartProps {
   data: StockChartDto[];
-  chartContainerRef: React.Ref<HTMLDivElement>;
 }
 
 const ChartElement = styled('div')`
@@ -41,7 +39,7 @@ const renderChart = (data: StockChartDto[], el: HTMLElement): void => {
   });
 };
 
-const StockChart: React.FC<StockChartProps> = ({ data, chartContainerRef }) => {
+const StockChart: React.FC<StockChartProps> = ({ data }) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -50,11 +48,7 @@ const StockChart: React.FC<StockChartProps> = ({ data, chartContainerRef }) => {
     }
   }, [data]);
 
-  return (
-    <ChartContainer ref={chartContainerRef}>
-      <ChartElement ref={chartRef} />
-    </ChartContainer>
-  );
+  return <ChartElement ref={chartRef} />;
 };
 
 export default StockChart;

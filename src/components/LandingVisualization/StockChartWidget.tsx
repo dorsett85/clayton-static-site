@@ -31,7 +31,7 @@ export const StockChartWidget: React.FC = () => {
   return (
     <>
       <StockChartForm onData={setStockChartData} />
-      <StockChartLazy data={stockChartData} chartContainerRef={chartContainerRef} />
+      <StockChartLazy data={stockChartData} ref={chartContainerRef} />
     </>
   );
 };
