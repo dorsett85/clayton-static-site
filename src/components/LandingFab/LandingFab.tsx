@@ -22,7 +22,7 @@ const ContactTextContainer = styled('div')(({ theme }) => ({
   margin: theme.spacing(2)
 }));
 
-export const LandingFab: React.FC = () => {
+const LandingFab: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   return (
@@ -67,3 +67,5 @@ export const LandingFab: React.FC = () => {
     </>
   );
 };
+
+export default LandingFab;

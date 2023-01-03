@@ -1,15 +1,10 @@
 import React from 'react';
-import { Grid, Typography, styled } from '@mui/material';
-import quickModelVideo from '../../assets/img/quickmodel-vid.mp4';
+import { Grid, Typography } from '@mui/material';
 import { skillItemData } from '../ListSkillItem/skillItemData';
 import { SkillListGrid } from '../SkillListGrid/SkillListGrid';
 import { LandingSection } from '../LandingSection/LandingSection';
 import { StockChartWidget } from './StockChartWidget';
-
-const VisualizationVideo = styled('video')`
-  width: 100%;
-  box-shadow: 0 0 1px #373737;
-`;
+import { VisualizationVideo } from './VisualizationVideo';
 
 const LandingVisualization: React.FC = () => {
   return (
@@ -32,9 +27,7 @@ const LandingVisualization: React.FC = () => {
           <Typography fontSize={20}>Check your stocks in the example below!</Typography>
         </Grid>
         <Grid item md={6}>
-          <VisualizationVideo playsInline muted autoPlay loop>
-            <source src={quickModelVideo} type='video/mp4' />
-          </VisualizationVideo>
+          <VisualizationVideo />
         </Grid>
       </Grid>
       <StockChartWidget />

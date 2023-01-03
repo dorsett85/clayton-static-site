@@ -79,7 +79,7 @@ export const StockChartForm: React.FC<StockChartFormProps> = ({ onData }) => {
         onInput={handleOnTickerInput}
         required
       />
-      <Button type='submit' disabled={fetching}>
+      <Button type='submit' disabled={fetching} size='large'>
         {fetching && (
           <>
             <CircularProgress size={16} />{' '}
