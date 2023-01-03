@@ -16,6 +16,7 @@ const config: GatsbyConfig = {
         background_color: '#ffffff',
         theme_color: '#ffffff',
         display: 'minimal-ui',
+        crossOrigin: 'use-credentials',
         icon: 'src/assets/img/favicon.png' // This path is relative to the root of the site.
       }
     },
