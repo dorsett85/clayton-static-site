@@ -5,7 +5,7 @@ import LandingDevelopment from '../LandingDevelopment/LandingDevelopment';
 import { Container, Divider } from '@mui/material';
 import LandingVisualization from '../LandingVisualization/LandingVisualization';
 import LandingPersonal from '../LandingPersonal/LandingPersonal';
-import { LandingFabLazy } from '../LandingFab/LandingFabLazy';
+import { LandingFab } from '../LandingFab/LandingFab';
 
 const Landing: React.FC = () => {
   return (
@@ -19,7 +19,7 @@ const Landing: React.FC = () => {
         <Divider />
         <LandingPersonal />
       </Container>
-      <LandingFabLazy />
+      <LandingFab />
     </>
   );
 };
