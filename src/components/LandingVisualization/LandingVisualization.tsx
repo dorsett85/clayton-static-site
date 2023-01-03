@@ -31,7 +31,7 @@ const LandingVisualization: React.FC = () => {
         </Grid>
       </Grid>
       <StockChartWidget />
-      <Typography fontSize={20} mb={3}>
+      <Typography fontSize={20} mb={4}>
         Analytic applications are available with (but not limited to) the following
         libraries:
       </Typography>

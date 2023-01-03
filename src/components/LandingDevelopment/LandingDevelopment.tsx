@@ -85,7 +85,7 @@ const LandingDevelopment: React.FC = () => {
           skillItems={skillItemData.development.cloud}
         />
       </Grid>
-      <Typography variant='h3' mt={2} mb={2}>
+      <Typography variant='h3' mt={4} mb={4}>
         Sample Applications
       </Typography>
       <Grid container spacing={2}>

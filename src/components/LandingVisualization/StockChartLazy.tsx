@@ -11,7 +11,7 @@ interface StockChartLazyProps {
 const ChartContainer = styled('div')(({ theme }) => ({
   height: 400,
   marginTop: theme.spacing(2),
-  marginBottom: theme.spacing(2)
+  marginBottom: theme.spacing(4)
 }));
 
 export const StockChartLazy = React.forwardRef<HTMLDivElement, StockChartLazyProps>(
