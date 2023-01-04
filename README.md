@@ -1,4 +1,4 @@
-Professional site with Dotnet Core, Typescript, and Gatsby
+Professional site with Dotnet, Typescript, and Gatsby
 
 https://cphillipsdorsett.com/
 
@@ -6,7 +6,7 @@ https://cphillipsdorsett.com/
 
 Required software
 1. node 18.12.1
-2. dotnet core 3.1
+2. dotnet 6.0.111
 
 ### production setup (ssh'd into server as sudo root user 'clayton')
 
@@ -27,17 +27,6 @@ yarn build
 cd server/StaticSiteWebApi/
 dotnet build
 dotnet publish -c Release
-```
-
-*Note: until dotnet is upgraded, the webmanifest file can't be read by
-Kestrel. You'll need to go into the public/ directory and change
-manifest.webmanifest to manifest.json. Likewise, you'll need to change
-the reference to manifest.webmanifest in index.html to manifest.json.
-Heres's some shortcut commands:*
-
-```shell
-mv public/manifest.webmanifest public/manifest.json
-sed -i 's/webmanifest/json/' public/index.html
 ```
 
 Next up we'll follow the tutorial at this link (starting from "Step 4 — Configuring the Web Server"):
