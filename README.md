@@ -29,6 +29,17 @@ dotnet build
 dotnet publish -c Release
 ```
 
+*Note: until dotnet is upgraded, the webmanifest file can't be read by
+Kestrel. You'll need to go into the public/ directory and change
+manifest.webmanifest to manifest.json. Likewise, you'll need to change
+the reference to manifest.webmanifest in index.html to manifest.json.
+Heres's some shortcut commands:*
+
+```shell
+mv public/manifest.webmanifest public/manifest.json
+sed -i 's/webmanifest/json/' public/index.html
+```
+
 Next up we'll follow the tutorial at this link (starting from "Step 4 — Configuring the Web Server"):
 
 https://www.digitalocean.com/community/tutorials/how-to-deploy-an-asp-net-core-application-with-mysql-server-using-nginx-on-ubuntu-18-04
