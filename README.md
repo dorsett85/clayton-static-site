@@ -6,7 +6,7 @@ https://cphillipsdorsett.com/
 
 Required software
 1. node 18.12.1
-2. dotnet 6.0.111
+2. dotnet 8.0.114
 
 ### production setup (ssh'd into server as sudo root user 'clayton')
 
